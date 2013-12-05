@@ -1,9 +1,9 @@
 /*
-	NAT Challenge Custom Normalize Stylesheet
+	JS NAT Challenge Custom Normalize Stylesheet
 
 	Author: Jason Lunsford
 	Version: 1.0
-	URL: www.jasonlunsford.net
+	URL: 
 
 	-----------------------------------------
 	CONTENTS - MYNORMALIZE.CSS
@@ -39,7 +39,7 @@
 
 	/* Helvetica only available on Macs by default, Arial a very close approximation (and available on Windows) */
 	/* sans-serif will be the ultimate fall back */
-	html { font-family:Helvetica, Arial, sans-serif; }
+	html {  }
 	
 
 /* 3. LINKS & BUTTONS
