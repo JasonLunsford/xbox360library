@@ -9,10 +9,9 @@
 
 // Protect namespace, leave angular alone
 (function() {
-	// enforce good practices and catch me when I get lazy
-	"use strict";
-	// attach jQuery
-	$(function() {
-
-	});
+    // enforce good practices and catch me when I get lazy
+    "use strict";
+    (function($) {
+		console.log("hello world");
+    })(jQuery);
 })();

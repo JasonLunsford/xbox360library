@@ -21,6 +21,29 @@
 /* 1. GLOBAL LAYOUT
 ----------------------------------------------------------------------------------------*/
 
+	html { height:100%; }
+
+	body:before, body:after {
+		background:#107C10;
+		content:"";
+		height:5px;
+		left:0;
+		position:fixed;
+		right:0;
+
+	}
+	body:before { top:0; }
+	
+	body:after { bottom: 0; }
+	
+	body {
+		border-left:5px solid #107C10;
+		border-right:5px solid #107C10;  
+		min-height:100%;
+		padding:10px 0px 0px 0px;
+	}
+	
+
 
 
 /* 2. TYPOGRAPHY
@@ -31,11 +54,13 @@
 	}
 	
 	h1 {
-
+		margin:0px;
+		text-align:center;
 	}
 	
 	h2 {
-
+		border-bottom:2px solid #107C10;
+		margin:0px;
 	}
 
 /* 3. LINKS & BUTTONS & FORMS
@@ -52,7 +77,7 @@
 ----------------------------------------------------------------------------------------*/
 
 	div.siteHeader {
-
+		margin:50px 0px 0px 0px;
 	}
 	
 
@@ -61,8 +86,20 @@
 ----------------------------------------------------------------------------------------*/
 
 	section.mainContent {
-
+		margin:50px 0px 60px 0px;
+		min-height:500px;
 	}
+	
+	section.mainContent > div {
+		float:left;
+	}
+	
+	section.mainContent div.titlesOwned { width:40%; }
+	
+	section.mainContent div.titlesDesired { width:60%; }
+	
+
+	section.mainContent div.titlesOwned h2 { margin:0px 20px 0px 0px; }
 	
 
 /* 6. SITE FOOTER
