@@ -1,0 +1,113 @@
+/*
+	JS NAT Challenge Custom Normalize Stylesheet
+
+	Author: Jason Lunsford
+	Version: 1.0
+	URL: 
+
+	-----------------------------------------
+	CONTENTS - MYNORMALIZE.CSS
+	-----------------------------------------
+	1. HTML5 ELEMENTS
+	2. TYPOGRAPHY
+	3. LINKS & BUTTONS
+	4. GLOBAL LAYOUT
+	5. CONTENT
+	6. FORMS
+
+*/
+
+/* 1. HTML5 ELEMENTS
+----------------------------------------------------------------------------------------*/
+
+	/* Correct "block" display not defined in IE 8/9. */
+	article,
+	aside,
+	details,
+	figcaption,
+	figure,
+	footer,
+	header,
+	main,
+	nav,
+	section,
+	summary { display:block; }
+
+
+/* 2. TYPOGRAPHY
+----------------------------------------------------------------------------------------*/
+
+	/* Helvetica only available on Macs by default, Arial a very close approximation (and available on Windows) */
+	/* sans-serif will be the ultimate fall back */
+	html {  }
+	
+
+/* 3. LINKS & BUTTONS
+----------------------------------------------------------------------------------------*/
+
+	/* Remove the gray background color from active links in IE 10. */
+	a { background:transparent; }
+
+	/* Address "outline" inconsistency between Chrome and other browsers. */
+	a:focus { outline:0; }
+
+	/* Improve readability when focused and also mouse hovered in all browsers. */
+	a:active, a:hover { outline:0; }
+	
+
+
+/* 4. GLOBAL LAYOUT
+----------------------------------------------------------------------------------------*/
+
+	body { margin:0px; }
+
+
+/* 5. CONTENT
+----------------------------------------------------------------------------------------*/
+
+	/* Remove border when inside <a> element in IE 8/9. */
+	img { border:0; }
+
+
+/* 6. FORMS
+----------------------------------------------------------------------------------------*/
+
+	/*
+		1. Correct font family not being inherited in all browsers.
+		2. Correct font size not being inherited in all browsers.
+		3. Address margins set differently in Firefox 4+, Safari 5, and Chrome.
+	*/
+	button,
+	input,
+	select,
+	textarea {
+		font-family:inherit;	/* 1 */
+		font-size:100%;			/* 2 */
+		margin:0px;				/* 3 */
+	}
+
+	/* Address Firefox 4+ setting "line-height" on <input> using "!important" in the User Agent stylesheet. */
+	button, input { line-height:normal; }
+
+	/* Addresses inconsistent "text-transform" style inheritance for <button> in Chrome, Safari 5+, and IE 8+. */
+	button { text-transform:none; }
+
+	/*
+		1. Address box sizing set to content-box in IE 8/9/10.
+		2. Remove excess padding in IE 8/9/10.
+	*/
+	input[type="checkbox"] {
+		box-sizing:border-box;	/* 1 */
+		padding:0px;			/* 2 */
+	}
+
+	/* Remove inner padding and search cancel button in Safari 5 and Chrome on OS X. */
+	input[type="search"]::-webkit-search-cancel-button,
+	input[type="search"]::-webkit-search-decoration { -webkit-appearance:none; }
+
+	/* Remove inner padding and border in Firefox 4+. */
+	button::-moz-focus-inner,
+	input::-moz-focus-inner {
+		border:0;
+		padding:0px;
+	}

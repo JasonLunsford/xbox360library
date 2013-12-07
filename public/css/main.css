@@ -1,0 +1,179 @@
+/*
+	JS NAT Challenge Global Stylesheet
+
+	Author: Jason Lunsford
+	Version: 1.0
+	URL:
+	
+	-----------------------------------------
+	CONTENTS - MAIN.CSS
+	-----------------------------------------
+	1. GLOBAL LAYOUT
+	2. TYPOGRAPHY
+	3. LINKS & BUTTONS & FORMS
+	4. SITE HEADER
+	5. MAIN CONTENT
+	6. BOOTSTRAP OVER-WRITES
+	7. BROWSER AND NON-SEMANTIC STYLING
+
+*/
+
+/* 1. GLOBAL LAYOUT
+----------------------------------------------------------------------------------------*/
+
+	html { height:100%; }
+
+	body:before, body:after {
+		background:#107C10;
+		content:"";
+		height:5px;
+		left:0;
+		position:fixed;
+		right:0;
+
+	}
+	body:before { top:0; }
+	
+	body:after { bottom: 0; }
+	
+	body {
+		background:url("../img/graphPaper.jpg") repeat left top transparent;
+		border-left:5px solid #107C10;
+		border-right:5px solid #107C10;  
+		min-height:100%;
+		padding:10px 0px 0px 0px;
+	}
+	
+	div.customized {
+		background:#ffffff;
+		border:2px solid #333333;
+		height:100%;
+		margin:50px 0px 0px 0px;
+		padding:30px 20px 30px;
+		
+		border-radius:8px;
+	}
+
+
+/* 2. TYPOGRAPHY
+----------------------------------------------------------------------------------------*/
+
+	p { 
+
+	}
+	
+	h1 {
+		margin:0px;
+		text-align:center;
+	}
+	
+	h2 {
+		border-bottom:2px solid #107C10;
+		margin:0px;
+	}
+
+/* 3. LINKS & BUTTONS & FORMS
+----------------------------------------------------------------------------------------*/
+
+	a {  }
+	a:hover { text-decoration:none; }
+	
+	input[type="text"] { border:0;  }
+
+/* 4. SITE HEADER
+----------------------------------------------------------------------------------------*/
+
+	div.siteHeader {
+		margin:0px 0px 60px 0px;
+	}
+	
+
+	
+/* 5. MAIN CONTENT
+----------------------------------------------------------------------------------------*/
+
+	section.mainContent { margin:0px; min-height:500px; }
+	
+	section.mainContent > div { 
+		display:inline-block;
+		zoom:1; 				/* trigger hasLayout mode in IE7 */
+	    *display:inline;		/* IE7 only vendor prefix - does not validate, but makes IE7 cooperate */
+	    vertical-align:top;
+	}
+	.l-column { width:45%; }
+	.r-column { width:54%; }
+	
+	header { margin:0px 0px 20px 0px; }
+	.l-column header { padding:0px 20px 0px 0px; }
+	.r-column header { position:relative; }
+	
+	.addNewTitlePanel {
+		background-color:#F2FAF2;
+		border:1px solid #107C10;
+		margin:0px 0px 10px 0px;
+		padding:10px 20px;
+		position:relative;
+	}
+	.addNewTitlePanel a {
+		color:#107C10;
+		font-weight:bold;
+		height:17px;
+		position:absolute;
+		right:5px;
+		text-align:center;
+		top:5px;
+		width:14px;
+	}
+	.addNewTitlePanel a:hover {
+		background:#107C10;
+		color:#ffffff;
+	}
+
+	.tableContainer { padding:0px 20px 0px 0px; }
+	.r-column .tableContainer { padding:0px; }
+	
+	.tableContainer .lastItem { text-align:center; }
+	
+	.mainContent button {
+		border:1px solid #107C10;
+		color:#333333;
+		padding:4px 8px;
+		
+		border-radius:14px;
+	}
+	.mainContent button.addNewTitle {
+		right:0px;
+		position:absolute;
+		top:1px;
+	}
+	
+
+	/* Responsive Tweaks */
+	@media (max-width: 992px) {
+		section.mainContent > div { display:block; }
+		.l-column { width:100%; }
+		.r-column { width:100%; }
+		
+		.l-column > header { padding:0px; }
+		
+		.tableContainer { padding:0px; }
+	}
+	
+
+/* 6. BOOTSTRAP OVER-WRITES
+----------------------------------------------------------------------------------------*/
+
+	/* Give the table stripes a faint green background to match color scheme */
+	.table-striped > tbody > tr:nth-child(2n+1) > td { background-color:#F2FAF2; }
+	
+	/* Middle (vertical) alignment for TD contents (instead of top) */
+	.table > tbody > tr > td { vertical-align:middle; }
+	
+	
+/* 7. BROWSER AND NON-SEMANTIC STYLING
+----------------------------------------------------------------------------------------*/
+
+	.hidden {
+		display:none !important;
+		visibility:hidden;
+	}
