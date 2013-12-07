@@ -75,10 +75,8 @@
 /* 3. LINKS & BUTTONS & FORMS
 ----------------------------------------------------------------------------------------*/
 
-	a {
-
-	}
-	a:hover {  }
+	a {  }
+	a:hover { text-decoration:none; }
 	
 	input[type="text"] { border:0;  }
 
@@ -112,12 +110,25 @@
 	.addNewTitlePanel {
 		background-color:#F2FAF2;
 		border:1px solid #107C10;
-		margin:0px 0px 20px 0px;
+		margin:0px 0px 10px 0px;
 		padding:10px 20px;
+		position:relative;
 	}
-	
+	.addNewTitlePanel a {
+		color:#107C10;
+		font-weight:bold;
+		height:17px;
+		position:absolute;
+		right:5px;
+		text-align:center;
+		top:5px;
+		width:14px;
+	}
+	.addNewTitlePanel a:hover {
+		background:#107C10;
+		color:#ffffff;
+	}
 
-	
 	.tableContainer { padding:0px 20px 0px 0px; }
 	.r-column .tableContainer { padding:0px; }
 	
@@ -133,10 +144,10 @@
 	.mainContent button.addNewTitle {
 		right:0px;
 		position:absolute;
-		top:0px;
+		top:1px;
 	}
 	
-	
+
 	/* Responsive Tweaks */
 	@media (max-width: 992px) {
 		section.mainContent > div { display:block; }
