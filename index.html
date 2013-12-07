@@ -10,26 +10,114 @@
 	<!-- Load Modernizr -->
 	<script src="/js/vendors/modernizr-2.7.0.js"></script>
 	<!-- Core CSS -->
-	<link rel="stylesheet" href="css/mynormalize.css" media="screen">
 	<link rel="stylesheet" href="css/main.css" media="screen">
 </head>
 <body ng-app="gameLibrary">
 	<div class="container" role="main">
-		<div class="starter-template">
+		<div class="starter-template customized">
 		
 			<div class="siteHeader" role="banner">
 				<h1>Our Xbox 360 Game Library</h1>
 			</div>
 			<section class="mainContent">
-				<div class="titlesOwned">
+				<div class="l-column">
 					<header>
 						<h2>Titles We Own</h2>
 					</header>
+					<div class="tableContainer">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Name of Title</th>
+								</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>Fallout 3</td>
+							</tr>
+							<tr>
+								<td>Fallout: New Vegas</td>
+							</tr>
+							<tr>
+								<td>Mass Effect 1</td>
+							</tr>
+							<tr>
+								<td>Mass Effect 2</td>
+							</tr>
+							<tr>
+								<td>Mass Effect 3</td>
+							</tr>
+							<tr>
+								<td>Skyrim</td>
+							</tr>
+							<tr>
+								<td>Deux Ex</td>
+							</tr>
+							<tr>
+								<td>Red Dead Redemption</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
-				<div class="titlesDesired">
+				<div class="r-column">
 					<header>
 						<h2>Titles We Want</h2>
+						<button class="addNewTitle" type="button">Add Title</button>
 					</header>
+					<div class="tableContainer">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Name of Title</th>
+									<th>Votes</th>
+									<th class="lastItem"><button type="button">Vote For This Title</button></th>
+								</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>GTA V</td>
+								<td>18</td>
+								<td class="lastItem"><input type="radio" name="desiredTitles" id="title1" value="123456"></td>
+							</tr>
+							<tr>
+								<td>Assassins Creed IV</td>
+								<td>12</td>
+								<td class="lastItem"><input type="radio" name="desiredTitles" id="title1" value="123456"></td>
+							</tr>
+							<tr>
+								<td>Borderlands 2</td>
+								<td>11</td>
+								<td class="lastItem"><input type="radio" name="desiredTitles" id="title1" value="123456"></td>
+							</tr>
+							<tr>
+								<td>Injustice: Gods Amoung Us</td>
+								<td>9</td>
+								<td class="lastItem"><input type="radio" name="desiredTitles" id="title1" value="123456"></td>
+							</tr>
+							<tr>
+								<td>Tomb Raider</td>
+								<td>7</td>
+								<td class="lastItem"><input type="radio" name="desiredTitles" id="title1" value="123456"></td>
+							</tr>
+							<tr>
+								<td>LEGO Marvel</td>
+								<td>6</td>
+								<td class="lastItem"><input type="radio" name="desiredTitles" id="title1" value="123456"></td>
+							</tr>
+							<tr>
+								<td>Batman: Arkham City</td>
+								<td>5</td>
+								<td class="lastItem"><input type="radio" name="desiredTitles" id="title1" value="123456"></td>
+							</tr>
+							<tr>
+								<td>Rock Band 3</td>
+								<td>1</td>
+								<td class="lastItem"><input type="radio" name="desiredTitles" id="title1" value="123456"></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</section>
 			<div class="siteFooter" role="contentinfo">
