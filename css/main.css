@@ -100,6 +100,7 @@
 		display:inline-block;
 		zoom:1; 				/* trigger hasLayout mode in IE7 */
 	    *display:inline;		/* IE7 only vendor prefix - does not validate, but makes IE7 cooperate */
+	    vertical-align:top;
 	}
 	.l-column { width:45%; }
 	.r-column { width:54%; }
@@ -107,6 +108,15 @@
 	header { margin:0px 0px 20px 0px; }
 	.l-column header { padding:0px 20px 0px 0px; }
 	.r-column header { position:relative; }
+	
+	.addNewTitlePanel {
+		background-color:#F2FAF2;
+		border:1px solid #107C10;
+		margin:0px 0px 20px 0px;
+		padding:10px 20px;
+	}
+	
+
 	
 	.tableContainer { padding:0px 20px 0px 0px; }
 	.r-column .tableContainer { padding:0px; }
