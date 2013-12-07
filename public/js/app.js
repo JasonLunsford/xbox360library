@@ -23,9 +23,18 @@ app.controller("GameLibraryCtrl", function($scope) {
 	}
 })
 
-app.directive("titlesWeOwnView", function() {
+app.directive("titlesweownview", function() {
 	return {
 		restrict:"E",
-		templateUrl:"views/titlesWeOwn.html"
+		replace:true,
+		templateUrl:"titlesweown.html"
+	}
+})
+
+app.directive("titleswewantview", function() {
+	return {
+		restrict:"E",
+		replace:true,
+		templateUrl:"titleswewant.html"
 	}
 })
