@@ -2,17 +2,21 @@
 // JS NAT Challenge Core JS
 // Jason Lunsford
 // v1.0
-// app.js
+// glApp.js
 //
-// Note: define and configure all modules here
+// Note: Define module and routing
 //--------------------------------
 
-var app = angular.module("gameLibrary", ["ngRoute"])
+"use strict";
 
-// Configs
-//--------------------------------
-
-app.config(function ($routeProvider) {
+// Declare app module with all necessary dependencies, and then configure URL routing
+angular.module("gameLibrary", [
+	"ngRoute",
+	"gameLibrary.services",
+	"gameLibrary.directives",
+	"gameLibrary.controllers"
+]).
+config(["$routeProvider", function ($routeProvider) {
 	$routeProvider
 		.when('/',
 		{
@@ -24,48 +28,6 @@ app.config(function ($routeProvider) {
 			templateURL:"index.html"
 		})
 		.otherwise({
-			redirectTo:"/"
+			redirectTo:"/index.html" // heavy-handed redirect back to index.html
 		})
-})
-
-
-// Controllers
-//--------------------------------
-
-app.controller("GameLibraryCtrl", function($scope) {
- 
-})
-
-
-// UI Events (Directives)
-//--------------------------------
-
-app.directive("selectthisradio", function() {
-    return {
-    	scope:{},
-    	link: function(scope, element, attrs) {
-		    element.bind("click", function() {
-				element.find("input").attr("checked",true);
-		    })
-		}
-	}
-})
-
-
-// View Injections (Directives)
-//--------------------------------
-app.directive("titlesweownview", function() {
-	return {
-		restrict:"E",
-		replace:true,
-		templateUrl:"titlesweown.html"
-	}
-})
-
-app.directive("titleswewantview", function() {
-	return {
-		restrict:"E",
-		replace:true,
-		templateUrl:"titleswewant.html"
-	}
-})
+}]);
