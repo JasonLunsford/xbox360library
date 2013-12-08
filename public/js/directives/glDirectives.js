@@ -4,7 +4,7 @@
 // v1.0
 // glDirectives.js
 //
-// Note: Directives
+// Note: Directives & Helpers
 //--------------------------------
 
 "use strict";
@@ -15,13 +15,13 @@ angular.module("gameLibrary.directives", []).
 		return {
 			restrict:"E",
 			replace:true,
-			templateUrl:"partials/titlesweown.html"
+			templateUrl:"partials/titlesweown.html", // load partial view via AJAX
 		};
 	}]).directive("titleswewantview", [function() {
 		return {
 			restrict:"E",
 			replace:true,
-			templateUrl:"partials/titleswewant.html"
+			templateUrl:"partials/titleswewant.html" // load partial view via AJAX
 		}
 	}]).directive("radiobuttonrow", [function() {
 		return {
@@ -29,7 +29,7 @@ angular.module("gameLibrary.directives", []).
 			scope:{},
 			link: function(scope, element, attrs) {
 				element.bind("click", function() {
-					console.log( element.find("input").attr("id") );
+					console.log( element.attrs );
 				})
 			}
 		}
