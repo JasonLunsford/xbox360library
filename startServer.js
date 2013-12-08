@@ -11,9 +11,13 @@ app.use(express.logger('dev'));
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get("*", function(req, res) {
-	res.send("404 fool");
+// Move Router up here to allow Angular to handle page routing
+app.use(app.router);
+
+app.use(function(req, res) {
+	res.sendfile(__dirname + '/public/index.html');
 });
+
 
 // Fire it up!
 app.listen(3000);

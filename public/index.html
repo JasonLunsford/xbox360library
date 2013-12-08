@@ -19,7 +19,7 @@
 			<div class="siteHeader" role="banner">
 				<h1>Our Xbox 360 Game Library</h1>
 			</div>
-			<section class="mainContent">
+			<section class="mainContent" ng-controller="GameLibraryCtrl">
 				<div class="l-column">
 					<header>
 						<h2>Titles We Own</h2>
@@ -28,12 +28,12 @@
 						<titlesweownview></titlesweownview>
 					</div>
 				</div>
-				<div class="r-column" ng-controller="GameLibraryCtrl">
+				<div class="r-column">
 					<header>
 						<h2>Titles We Want</h2>
-						<button class="addNewTitle" type="button" ng-click="showTitleBox()">Add Title</button>
+						<button class="addNewTitle" type="button" ng-model="toggleNewTitlePanel" ng-click="toggleNewTitlePanel=true">Add Title</button>
 					</header>
-					<div class="addNewTitlePanel hidden">
+					<div class="addNewTitlePanel" ng-show="toggleNewTitlePanel">
 						<form role="form">
 							<div class="form-group">
 								<label for="newTitleSuggestion">Please enter your title suggestion!</label>
@@ -41,7 +41,7 @@
 							</div>
 							<button type="submit" value="submit">Submit Title</button>
 						</form>
-						<a href="" ng-click="hideTitleBox()">X</a>
+						<a href="" ng-model="toggleNewTitlePanel" ng-click="toggleNewTitlePanel=false">X</a>
 					</div>
 					<div class="tableContainer">
 						<titleswewantview></titleswewantview>
@@ -55,12 +55,11 @@
 	<!-- Also, nothing beats reading source as a way to learn new tricks. -->
 	<!-- jQuery -->
 	<script src="js/vendors/jquery-1.10.2.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/vendors/bootstrap/bootstrap.js"></script>
-	<!-- AngularJS -->
+	<!-- AngularJS & Necessary External Modules-->
 	<script src="js/vendors/angular-1.2.3.js"></script>
+	<script src="js/vendors/angular-route.js"></script>
 	<!-- My Scripts -->
-	<script src="js/global.js"></script>
-	<script src="js/app.js"></script>
+	<script src="js/glApp.js"></script>
+	<script src="js/glGlobal.js"></script>
 </body>
 </html>
