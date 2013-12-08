@@ -9,4 +9,5 @@
 
 "use strict";
 
+// no services defined, basically a stub, remove if not used
 angular.module("gameLibrary.services", []);

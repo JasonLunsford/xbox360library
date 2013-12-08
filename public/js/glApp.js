@@ -21,11 +21,11 @@ config(["$routeProvider", function ($routeProvider) {
 		.when('/',
 		{
 			templateURL:"index.html",
-			controller:"GameLibraryCtrl"
+			controller:"GameLibraryCtrl" // global controller, change if necessary
 		})
 		.when('/index',
 		{
-			templateURL:"index.html"
+			templateURL:"index.html" // not really needed, given my .otherwise(), just an example
 		})
 		.otherwise({
 			redirectTo:"/index.html" // heavy-handed redirect back to index.html

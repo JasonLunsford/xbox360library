@@ -23,12 +23,13 @@ angular.module("gameLibrary.directives", []).
 			replace:true,
 			templateUrl:"partials/titleswewant.html"
 		}
-	}]).directive("selectthisradio", [function() {
+	}]).directive("radiobuttonrow", [function() {
 		return {
+			restrict:"A",
 			scope:{},
 			link: function(scope, element, attrs) {
 				element.bind("click", function() {
-					element.find("input").attr("checked",true);
+					console.log( element.find("input").attr("id") );
 				})
 			}
 		}
