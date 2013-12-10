@@ -14,7 +14,6 @@
 	4. SITE HEADER
 	5. MAIN CONTENT
 	6. BOOTSTRAP OVER-WRITES
-	7. BROWSER AND NON-SEMANTIC STYLING
 
 */
 
@@ -131,13 +130,16 @@
 
 	.tableContainer { padding:0px 20px 0px 0px; }
 	.r-column .tableContainer { padding:0px; }
-	
-	.tableContainer .lastItem { text-align:center; }
+		
+	.tableContainer .lastItem { text-align:right; }
+	.tableContainer .rightBtn { margin:0px 0px 0px 10px; }
 	
 	.mainContent button {
+		background-color:#107C10;
 		border:1px solid #107C10;
-		color:#333333;
-		padding:4px 8px;
+		color:#ffffff;
+		font-weight:bold;
+		padding:4px 8px 3px;
 		
 		border-radius:14px;
 	}
@@ -146,7 +148,7 @@
 		position:absolute;
 		top:1px;
 	}
-	
+	.mainContent button:hover { background-color:#ffffff; color:#107C10; }
 
 	/* Responsive Tweaks */
 	@media (max-width: 992px) {
@@ -165,15 +167,9 @@
 
 	/* Give the table stripes a faint green background to match color scheme */
 	.table-striped > tbody > tr:nth-child(2n+1) > td { background-color:#F2FAF2; }
+	.table-hover > tbody > tr:hover > td { background-color:#F9F9F9; }
+	
+	.table-hover > tbody > tr > td.selectedRow { background-color:#F9F9F9; }
 	
 	/* Middle (vertical) alignment for TD contents (instead of top) */
 	.table > tbody > tr > td { vertical-align:middle; }
-	
-	
-/* 7. BROWSER AND NON-SEMANTIC STYLING
-----------------------------------------------------------------------------------------*/
-
-	.hidden {
-		display:none !important;
-		visibility:hidden;
-	}

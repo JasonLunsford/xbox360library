@@ -23,14 +23,27 @@ angular.module("gameLibrary.directives", []).
 			replace:true,
 			templateUrl:"partials/titleswewant.html" // load partial view via AJAX
 		}
-	}]).directive("radiobuttonrow", [function() {
+	}]).directive("activaterow", [function() {
+		var linkFn;
+		// embedding some jQuery inside this link function until my AngularFu is better
+		linkFn = function(scope, element, attrs) {
+			// targeting children instead of actual element b/c the <td>s are easier to click on
+			var targetTds = element.children();
+		
+			var toggleBtns = function() {
+				// global settings reset
+				$(this).parents("table").find("button").addClass("invisible");
+				$(this).parents("table").find("td").removeClass("selectedRow");
+				// enable new settings
+				$(this).parent().find("button").toggleClass("invisible");
+				$(this).parent().children().addClass("selectedRow");
+			}
+			
+			targetTds.on("click", toggleBtns);
+		};
+		
 		return {
 			restrict:"A",
-			scope:{},
-			link: function(scope, element, attrs) {
-				element.bind("click", function() {
-					console.log( element.attrs );
-				})
-			}
+			link:linkFn
 		}
 	}]);
