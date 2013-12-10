@@ -9,43 +9,61 @@
 
 "use strict";
 
-// Add more controllers via .controller("YourCtrl"...)
+// One global, two nested controllers
 angular.module("gameLibrary.controllers", []).
-	controller("GameLibraryCtrl", ["$scope","checkAPIkey", function($scope, checkAPIkey) {
+	controller("GameLibraryCtrl", ["$scope","checkAPIkey","getAllGames", function($scope, checkAPIkey, getAllGames) {
 
 		// Uncomment and run to do a quick API Key validation check
 		//validateKey();
+		//getGameLibrary();
 		
 		function validateKey() {
 			checkAPIkey.then(function(response) {
 				( response.data ) ? console.log("API key valid.") : console.log("Server connection or API key failure. Please check API key and try again.")
 			});
 		};
+		
+		// Grabs the list of games and outputs to console.log, need to dump the output to more appropriate places
+		function getGameLibrary() {
+			getAllGames.then(function(response) {
+				console.log( response.data )
+			});
+		};
  	 		
  	}]).controller("TitlesWeWantCtrl", ["$scope","suggestNewTitle", function($scope, suggestNewTitle) {
  	
- 		// handling the add new title open, submit, and close controls
+ 		// Open the Suggest New Title panel
  		$scope.toggleNewTitlePanelOn = function() {
  			console.log("Add title panel opened.");
  			return $scope.toggleNewTitlePanel = true;
  		}
  		
+ 		// Close the Suggest New Title panel
  		$scope.toggleNewTitlePanelOff = function() {
  			console.log("Closed the add title panel.");
  			return $scope.toggleNewTitlePanel = false;
  		}
  		
- 		$scope.suggestNewTitleTrigger = function() {
+ 		// Add a new suggestion to the Titles We Want list
+ 		$scope.suggestNewTitleTrigger = function(suggestedGame) {
  			console.log("New title has been submitted");
- 			
- 			$scope.suggestedGame = { title:"Debbie Does Dallas" }
+ 			suggestNewTitle.setSuggestedTitle(suggestedGame).then(function(response) {
+ 				console.log ( response.data );
+ 				$scope.title = { suggestedGame:"" };
+ 			});
  		}
  	
- 	}]).controller("TitlesWeOwnCtrl", ["$scope", "$http", function($scope, $http) {
+ 	}]).controller("TitlesWeOwnCtrl", ["$scope", "sellAllGames", function($scope, sellAllGames) {
  	
- 		// handling the sell all titles we own control
+ 		// Sell the titles owned - clears all titles
  		$scope.sellAllTitles = function() {
-			( confirm("Are You Sure?") ) ? console.log("Sold!") : console.log("Canceled - for now!");
+			if ( confirm("Are You Sure?") ) { 
+				sellAllGames.then(function(response) {
+					( response.data ) ? console.log("Sold!") : console.log("Server issue. Please try again in a moment?")
+				});
+			} else {
+				console.log("Canceled - for now!");
+			}
  		}
  	
  	}]);

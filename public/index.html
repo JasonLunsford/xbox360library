@@ -42,10 +42,10 @@
 									   id="newTitleSuggestion"
 									   class="form-control"
 									   placeholder="Careful: Input not validated"
-									   data-ng-model="suggestedGame.title"
+									   data-ng-model="title.suggestedGame"
 								/>
 							</div>
-							<button type="submit" data-ng-click="suggestNewTitleTrigger()">Submit Title</button>
+							<button type="submit" data-ng-click="suggestNewTitleTrigger(title.suggestedGame)">Submit Title</button>
 						</form>
 						<a href="" data-ng-click="toggleNewTitlePanelOff()">X</a>
 					</div>
