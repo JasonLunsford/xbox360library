@@ -11,19 +11,18 @@
 
 // Add more controllers via .controller("YourCtrl"...)
 angular.module("gameLibrary.controllers", []).
-	controller("GameLibraryCtrl", ["$scope", "$http", "checkAPI", function($scope, $http, checkAPI) {
+	controller("GameLibraryCtrl", ["$scope","checkAPIkey", function($scope, checkAPIkey) {
 
 		// Uncomment and run to do a quick API Key validation check
-		// validateKey();
-		
+		//validateKey();
 		
 		function validateKey() {
-			checkAPI.then(function(response) {
-				( response.data ) ? console.log("API Valid") : console.log("Server connection or API key failure. Please check API key and try again.")
+			checkAPIkey.then(function(response) {
+				( response.data ) ? console.log("API key valid.") : console.log("Server connection or API key failure. Please check API key and try again.")
 			});
 		};
  	 		
- 	}]).controller("TitlesWeWantCtrl", ["$scope", "$http", function($scope, $http) {
+ 	}]).controller("TitlesWeWantCtrl", ["$scope","suggestNewTitle", function($scope, suggestNewTitle) {
  	
  		// handling the add new title open, submit, and close controls
  		$scope.toggleNewTitlePanelOn = function() {
@@ -36,8 +35,10 @@ angular.module("gameLibrary.controllers", []).
  			return $scope.toggleNewTitlePanel = false;
  		}
  		
- 		$scope.addNewTitleTrigger = function() {
+ 		$scope.suggestNewTitleTrigger = function() {
  			console.log("New title has been submitted");
+ 			
+ 			$scope.suggestedGame = { title:"Debbie Does Dallas" }
  		}
  	
  	}]).controller("TitlesWeOwnCtrl", ["$scope", "$http", function($scope, $http) {

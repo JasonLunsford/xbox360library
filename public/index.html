@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-app="gameLibrary">
+<html lang="en" data-ng-app="gameLibrary" data-ng-controller="GameLibraryCtrl">
 <head>
 	<meta charset=utf-8 />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
 			<div class="siteHeader" role="banner">
 				<h1>Our Xbox 360 Game Library</h1>
 			</div>
-			<section class="mainContent" data-ng-controller="GameLibraryCtrl">
+			<section class="mainContent">
 				<div class="l-column" data-ng-controller="TitlesWeOwnCtrl">
 					<header>
 						<h2>Titles We Own</h2>
@@ -38,9 +38,14 @@
 						<form role="form">
 							<div class="form-group">
 								<label for="newTitleSuggestion">Please enter your title suggestion!</label>
-								<input type="text" id="newTitleSuggestion" class="form-control" placeholder="Careful: Input not validated" />
+								<input type="text"
+									   id="newTitleSuggestion"
+									   class="form-control"
+									   placeholder="Careful: Input not validated"
+									   data-ng-model="suggestedGame.title"
+								/>
 							</div>
-							<button type="submit" data-ng-model="search.$" data-ng-click="addNewTitleTrigger()">Submit Title</button>
+							<button type="submit" data-ng-click="suggestNewTitleTrigger()">Submit Title</button>
 						</form>
 						<a href="" data-ng-click="toggleNewTitlePanelOff()">X</a>
 					</div>

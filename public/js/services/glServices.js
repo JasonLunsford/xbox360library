@@ -10,7 +10,8 @@
 "use strict";
 
 angular.module("gameLibrary.services", []).
-	factory("checkAPI", ["$rootScope", "$http", "$q", function($rootScope, $http, $q) {
+	factory("checkAPIkey", ["$http", function($http) {
+	
 		// separate key from URL for easy updating
 		var myApiKey		= "ab0f25a613e2845ede3f258060050006";
 
@@ -20,4 +21,27 @@ angular.module("gameLibrary.services", []).
 
  		var promise = $http.jsonp(validate).success(function (data) {}).error(function () {});
  		return promise;
+ 		
+	}]).factory("suggestNewTitle", ["$http", function($http) {
+	
+		// separate key from URL for easy updating
+		var myApiKey		= "ab0f25a613e2845ede3f258060050006";
+
+		// Keep handy for quick validation 		
+		var suggestNewTitleURL 	= "http://js.nrd.mn/challenge/addGame?callback=JSON_CALLBACK&";
+		var suggestNewTitle		= suggestNewTitleURL+myApiKey;
+		
+		// New game title
+		var suggestedTitle;
+		
+		// Interact with server, set up reply promise
+ 		//var promise = $http.jsonp(suggestNewTitle).
+ 		//success(function (data) {
+ 		
+ 		//}).
+ 		//error(function () {
+ 		
+ 		//});
+ 		//return promise;
+	
 	}]);
