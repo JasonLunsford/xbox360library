@@ -27,6 +27,7 @@ angular.module("gameLibrary.directives", []).
 		var linkFn;
 		// embedding some jQuery inside this link function until my AngularFu is better
 		linkFn = function(scope, element, attrs) {
+		
 			// targeting children instead of actual element b/c the <td>s are easier to click on
 			var targetTds = element.children();
 		
@@ -43,7 +44,18 @@ angular.module("gameLibrary.directives", []).
 		};
 		
 		return {
+			// explicit directive type declaration, just to keep things organized
 			restrict:"A",
+			// using an internal controller to handle buttons, no directive scope set up yet
+		    controller: function($scope) {
+		        $scope.voteForMe = function() {
+		            console.log("Vote for this title!");
+		        };
+
+		        $scope.weOwnThis = function() {
+		            console.log("We own this title, add it to the other column.");
+		        };
+		    },
 			link:linkFn
 		}
 	}]);

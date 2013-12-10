@@ -20,18 +20,19 @@
 				<h1>Our Xbox 360 Game Library</h1>
 			</div>
 			<section class="mainContent" data-ng-controller="GameLibraryCtrl">
-				<div class="l-column">
+				<div class="l-column" data-ng-controller="TitlesWeOwnCtrl">
 					<header>
 						<h2>Titles We Own</h2>
+						<button class="sellTitlesBtn" type="button" data-ng-click="sellAllTitles()">Sell All Titles</button>
 					</header>
 					<div class="tableContainer">
 						<titlesweownview></titlesweownview>
 					</div>
 				</div>
-				<div class="r-column">
+				<div class="r-column" data-ng-controller="TitlesWeWantCtrl">
 					<header>
 						<h2>Titles We Want</h2>
-						<button class="addNewTitle" type="button" data-ng-model="toggleNewTitlePanel" data-ng-click="toggleNewTitlePanel=true">Add Title</button>
+						<button class="addTitleBtn" type="button" data-ng-click="toggleNewTitlePanelOn()">Add Title</button>
 					</header>
 					<div class="addNewTitlePanel" data-ng-show="toggleNewTitlePanel">
 						<form role="form">
@@ -39,9 +40,9 @@
 								<label for="newTitleSuggestion">Please enter your title suggestion!</label>
 								<input type="text" id="newTitleSuggestion" class="form-control" placeholder="Careful: Input not validated" />
 							</div>
-							<button type="submit" value="submit">Submit Title</button>
+							<button type="submit" data-ng-model="search.$" data-ng-click="addNewTitleTrigger()">Submit Title</button>
 						</form>
-						<a href="" data-ng-model="toggleNewTitlePanel" data-ng-click="toggleNewTitlePanel=false">X</a>
+						<a href="" data-ng-click="toggleNewTitlePanelOff()">X</a>
 					</div>
 					<div class="tableContainer">
 						<titleswewantview></titleswewantview>

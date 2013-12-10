@@ -31,7 +31,29 @@ angular.module("gameLibrary.controllers", []).
  		}).error(function () {
 			console.log("Failed to download game object.");
  		});
+ 	 		
+ 	}]).controller("TitlesWeWantCtrl", ["$scope", "$http", function($scope, $http) {
+ 	
+ 		// handling the add new title open, submit, and close controls
+ 		$scope.toggleNewTitlePanelOn = function() {
+ 			console.log("Add title panel opened.");
+ 			return $scope.toggleNewTitlePanel = true;
+ 		}
  		
-
+ 		$scope.toggleNewTitlePanelOff = function() {
+ 			console.log("Closed the add title panel.");
+ 			return $scope.toggleNewTitlePanel = false;
+ 		}
  		
+ 		$scope.addNewTitleTrigger = function() {
+ 			console.log("New title has been submitted");
+ 		}
+ 	
+ 	}]).controller("TitlesWeOwnCtrl", ["$scope", "$http", function($scope, $http) {
+ 	
+ 		// handling the sell all titles we own control
+ 		$scope.sellAllTitles = function() {
+			( confirm("Are You Sure?") ) ? console.log("Sold!") : console.log("Canceled - for now!");
+ 		}
+ 	
  	}]);

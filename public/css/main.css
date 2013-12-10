@@ -103,7 +103,7 @@
 	.r-column { width:54%; }
 	
 	header { margin:0px 0px 20px 0px; }
-	.l-column header { padding:0px 20px 0px 0px; }
+	.l-column header { padding:0px 20px 0px 0px; position:relative; }
 	.r-column header { position:relative; }
 	
 	.addNewTitlePanel {
@@ -143,8 +143,13 @@
 		
 		border-radius:14px;
 	}
-	.mainContent button.addNewTitle {
+	.mainContent .addTitleBtn {
 		right:0px;
+		position:absolute;
+		top:1px;
+	}
+	.mainContent .sellTitlesBtn {
+		right:20px;
 		position:absolute;
 		top:1px;
 	}
