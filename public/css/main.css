@@ -170,11 +170,17 @@
 /* 6. BOOTSTRAP OVER-WRITES
 ----------------------------------------------------------------------------------------*/
 
-	/* Give the table stripes a faint green background to match color scheme */
-	.table-striped > tbody > tr:nth-child(2n+1) > td { background-color:#F2FAF2; }
-	.table-hover > tbody > tr:hover > td { background-color:#F9F9F9; }
+	/* Match the stripes to the game library color scheme and give the hover overs & select a specialized hover effect */
+	.table-striped > tbody > tr > td:first-child { border-left:4px solid #ffffff; }
 	
-	.table-hover > tbody > tr > td.selectedRow { background-color:#F9F9F9; }
+	.table-striped > tbody > tr:nth-child(2n+1) > td { background-color:#f2faf2; }
+	.table-striped > tbody > tr:nth-child(2n+1) > td:first-child { border-left:4px solid #f2faf2; }
+	
+	.table-hover > tbody > tr:hover > td { background-color:#f9f9f9; }
+	.table-hover > tbody > tr:hover > td:first-child { border-left:4px solid #107c10; }
+	
+	.table-hover > tbody > tr > td.selectedRow { background-color:#f9f9f9; }
+	.table-hover > tbody > tr > td.selectedRow:first-child { border-left:4px solid #107c10; }
 	
 	/* Middle (vertical) alignment for TD contents (instead of top) */
 	.table > tbody > tr > td { vertical-align:middle; }

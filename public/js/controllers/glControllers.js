@@ -11,26 +11,17 @@
 
 // Add more controllers via .controller("YourCtrl"...)
 angular.module("gameLibrary.controllers", []).
-	controller("GameLibraryCtrl", ["$scope", "$http", function($scope, $http) {
- 		var app 			= this;
- 		
- 		var checkKeyURL 	= "http://js.nrd.mn/challenge/checkKey?callback=JSON_CALLBACK&apiKey=";
- 		var myApiKey		= "ab0f25a613e2845ede3f258060050006";
- 		
- 		var getGamesURL 	= "http://js.nrd.mn/challenge/getGames?callback=JSON_CALLBACK&apiKey=";
+	controller("GameLibraryCtrl", ["$scope", "$http", "checkAPI", function($scope, $http, checkAPI) {
 
- 		var validate		= checkKeyURL+myApiKey;
- 		var getGames		= getGamesURL+myApiKey;
- 		
- 		$http({
- 			method: "JSONP",
- 			url: getGames
- 		}).success(function (data) {
-			console.log("Game object retrieved.");
-			console.log( data )
- 		}).error(function () {
-			console.log("Failed to download game object.");
- 		});
+		// Uncomment and run to do a quick API Key validation check
+		// validateKey();
+		
+		
+		function validateKey() {
+			checkAPI.then(function(response) {
+				( response.data ) ? console.log("API Valid") : console.log("Server connection or API key failure. Please check API key and try again.")
+			});
+		};
  	 		
  	}]).controller("TitlesWeWantCtrl", ["$scope", "$http", function($scope, $http) {
  	
