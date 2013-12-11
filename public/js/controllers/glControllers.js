@@ -15,7 +15,7 @@ angular.module("gameLibrary.controllers", []).
 
 		// Uncomment and run to do a quick API Key validation check
 		//validateKey();
-		//getGameLibrary();
+		getGameLibrary();
 		
 		function validateKey() {
 			checkAPIkey.then(function(response) {
@@ -49,7 +49,7 @@ angular.module("gameLibrary.controllers", []).
  			console.log("New title has been submitted");
  			suggestNewTitle.setSuggestedTitle(suggestedGame).then(function(response) {
  				console.log ( response.data );
- 				$scope.title = { suggestedGame:"" };
+ 				//$scope.title = { suggestedGame:"" };
  			});
  		}
  	
