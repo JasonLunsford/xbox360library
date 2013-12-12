@@ -11,26 +11,26 @@
 
 // One global, two nested controllers
 angular.module("gameLibrary.controllers", []).
-	controller("GameLibraryCtrl", ["$scope","checkAPIkey","getAllGames", function($scope, checkAPIkey, getAllGames) {
+	controller("GameLibraryCtrl", ["$scope","glWebAPI", function($scope, glWebAPI) {
 
 		// Uncomment and run to do a quick API Key validation check
 		//validateKey();
-		getGameLibrary();
+		//getGameLibrary();
 		
 		function validateKey() {
-			checkAPIkey.then(function(response) {
+			glWebAPI.getValidation().then(function(response) {
 				( response.data ) ? console.log("API key valid.") : console.log("Server connection or API key failure. Please check API key and try again.")
 			});
 		};
 		
 		// Grabs the list of games and outputs to console.log, need to dump the output to more appropriate places
 		function getGameLibrary() {
-			getAllGames.then(function(response) {
+			glWebAPI.getAllGames().then(function(response) {
 				console.log( response.data )
 			});
 		};
  	 		
- 	}]).controller("TitlesWeWantCtrl", ["$scope","suggestNewTitle", function($scope, suggestNewTitle) {
+ 	}]).controller("TitlesWeWantCtrl", ["$scope","glWebAPI", function($scope, glWebAPI) {
  	
  		// Open the Suggest New Title panel
  		$scope.toggleNewTitlePanelOn = function() {
@@ -47,18 +47,18 @@ angular.module("gameLibrary.controllers", []).
  		// Add a new suggestion to the Titles We Want list
  		$scope.suggestNewTitleTrigger = function(suggestedGame) {
  			console.log("New title has been submitted");
- 			suggestNewTitle.setSuggestedTitle(suggestedGame).then(function(response) {
+ 			glWebAPI.getSuggestNewGame(suggestedGame).then(function(response) {
  				console.log ( response.data );
  				//$scope.title = { suggestedGame:"" };
  			});
  		}
  	
- 	}]).controller("TitlesWeOwnCtrl", ["$scope", "sellAllGames", function($scope, sellAllGames) {
+ 	}]).controller("TitlesWeOwnCtrl", ["$scope", "glWebAPI", function($scope, glWebAPI) {
  	
  		// Sell the titles owned - clears all titles
  		$scope.sellAllTitles = function() {
 			if ( confirm("Are You Sure?") ) { 
-				sellAllGames.then(function(response) {
+				glWebAPI.getSellAllGames().then(function(response) {
 					( response.data ) ? console.log("Sold!") : console.log("Server issue. Please try again in a moment?")
 				});
 			} else {

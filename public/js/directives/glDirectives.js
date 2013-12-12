@@ -47,7 +47,7 @@ angular.module("gameLibrary.directives", []).
 			// explicit directive type declaration, just to keep things organized
 			restrict:"A",
 			// using an internal controller to handle buttons, no directive scope set up yet
-		    controller: function($scope, voteForNewGame, ownThisGame) {
+		    controller: function($scope, glWebAPI) {
 		        $scope.voteForMe = function() {
 		            console.log("Vote for this title!");
 		        };
