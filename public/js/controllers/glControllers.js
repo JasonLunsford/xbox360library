@@ -15,18 +15,10 @@ angular.module("gameLibrary.controllers", []).
 
 		// Uncomment and run to do a quick API Key validation check
 		//validateKey();
-		//getGameLibrary();
 		
 		function validateKey() {
 			glWebAPI.getValidation().then(function(response) {
 				( response.data ) ? console.log("API key valid.") : console.log("Server connection or API key failure. Please check API key and try again.")
-			});
-		};
-		
-		// Grabs the list of games and outputs to console.log, need to dump the output to more appropriate places
-		function getGameLibrary() {
-			glWebAPI.getAllGames().then(function(response) {
-				console.log( response.data )
 			});
 		};
  	 		

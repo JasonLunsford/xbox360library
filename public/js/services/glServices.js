@@ -42,6 +42,10 @@ angular.module("gameLibrary.services", []).
 		}
 		
  		var getAllGames = function() {
+ 			//var unPackMe;
+ 			//var thePromise = promise(getAllGamesURL);
+ 			//for (i=0; i < thePromise
+ 			// try unpacking the array, and sending that as a simple object?
 			return promise(getAllGamesURL);
 		}
 

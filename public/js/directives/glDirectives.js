@@ -18,10 +18,35 @@ angular.module("gameLibrary.directives", []).
 			templateUrl:"partials/titlesweown.html", // load partial view via AJAX
 		};
 	}]).directive("titleswewantview", [function() {
+		var linkFn;
+		// embedding some jQuery inside this link function until my AngularFu is better
+		linkFn = function(scope, element, attrs) {
+		
+
+		};
+		
 		return {
 			restrict:"E",
 			replace:true,
-			templateUrl:"partials/titleswewant.html" // load partial view via AJAX
+			templateUrl:"partials/titleswewant.html", // load partial view via AJAX
+			// using an internal controller to handle buttons, no directive scope set up yet
+		    controller: function($scope, glWebAPI) {
+		    	$scope.emptyRow = true;
+		    	$scope.contentRow = false;
+ 				getGameLibrary();
+ 	
+				function getGameLibrary() {
+					glWebAPI.getAllGames().then(function(response) {
+						if ( response.data.length > 0 ) {
+							$scope.emptyRow = false;
+							$scope.contentRow = true;
+							$scope.$watch.gamesWeWant = response.data;
+							console.log( response.data );
+						}
+					});
+				};
+			},
+			link:linkFn
 		}
 	}]).directive("activaterow", [function() {
 		var linkFn;
@@ -48,6 +73,16 @@ angular.module("gameLibrary.directives", []).
 			restrict:"A",
 			// using an internal controller to handle buttons, no directive scope set up yet
 		    controller: function($scope, glWebAPI) {
+		    
+ 				//getGameLibrary();
+ 	
+				function getGameLibrary() {
+					glWebAPI.getAllGames().then(function(response) {
+			
+						$scope.$watch.gamesWeWant = glWebAPI.response();
+					});
+				};
+				
 		        $scope.voteForMe = function() {
 		            console.log("Vote for this title!");
 		        };

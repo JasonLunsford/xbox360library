@@ -14,76 +14,20 @@
 		</tr>
 	</tfoot>
 	<tbody>
-		<tr data-activaterow>
-			<td>GTA V</td>
-			<td>18</td>
+		<tr data-ng-show="emptyRow">
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
 			<td class="lastItem">
 				<button type="button" class="invisible" data-ng-click="voteForMe()">Vote!</button>
 				<button type="button" class="invisible rightBtn" data-ng-click="weOwnThis()">Own It!</button>
-				<input type="hidden" value="123456">
 			</td>
 		</tr>
-		<tr data-activaterow>
-			<td>Assassins Creed IV</td>
-			<td>12</td>
+		<tr data-activaterow data-ng-show="contentRow" data-ng-repeat="game in gamesWeWant.data">
+			<td>{{game.title}}</td>
+			<td>{{game.votes}}</td>
 			<td class="lastItem">
 				<button type="button" class="invisible" data-ng-click="voteForMe()">Vote!</button>
 				<button type="button" class="invisible rightBtn" data-ng-click="weOwnThis()">Own It!</button>
-				<input type="hidden" value="123456">
-			</td>
-		</tr>
-		<tr data-activaterow>
-			<td>Borderlands 2</td>
-			<td>11</td>
-			<td class="lastItem">
-				<button type="button" class="invisible" data-ng-click="voteForMe()">Vote!</button>
-				<button type="button" class="invisible rightBtn" data-ng-click="weOwnThis()">Own It!</button>
-				<input type="hidden" value="123456">
-			</td>
-		</tr>
-		<tr data-activaterow>
-			<td>Injustice: Gods Amoung Us</td>
-			<td>9</td>
-			<td class="lastItem">
-				<button type="button" class="invisible" data-ng-click="voteForMe()">Vote!</button>
-				<button type="button" class="invisible rightBtn" data-ng-click="weOwnThis()">Own It!</button>
-				<input type="hidden" value="123456">
-			</td>
-		</tr>
-		<tr data-activaterow>
-			<td>Tomb Raider</td>
-			<td>7</td>
-			<td class="lastItem">
-				<button type="button" class="invisible" data-ng-click="voteForMe()">Vote!</button>
-				<button type="button" class="invisible rightBtn" data-ng-click="weOwnThis()">Own It!</button>
-				<input type="hidden" value="123456">
-			</td>
-		</tr>
-		<tr data-activaterow>
-			<td>LEGO Marvel</td>
-			<td>6</td>
-			<td class="lastItem">
-				<button type="button" class="invisible" data-ng-click="voteForMe()">Vote!</button>
-				<button type="button" class="invisible rightBtn" data-ng-click="weOwnThis()">Own It!</button>
-				<input type="hidden" value="123456">
-			</td>
-		</tr>
-		<tr data-activaterow>
-			<td>Batman: Arkham City</td>
-			<td>5</td>
-			<td class="lastItem">
-				<button type="button" class="invisible" data-ng-click="voteForMe()">Vote!</button>
-				<button type="button" class="invisible rightBtn" data-ng-click="weOwnThis()">Own It!</button>
-				<input type="hidden" value="123456">
-			</td>
-		</tr>
-		<tr data-activaterow>
-			<td>Rock Band 3</td>
-			<td>1</td>
-			<td class="lastItem">
-				<button type="button" class="invisible" data-ng-click="voteForMe()">Vote!</button>
-				<button type="button" class="invisible rightBtn" data-ng-click="weOwnThis()">Own It!</button>
-				<input type="hidden" value="123456">
 			</td>
 		</tr>
 	</tbody>
