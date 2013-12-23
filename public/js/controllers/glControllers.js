@@ -24,6 +24,21 @@ angular.module("gameLibrary.controllers", []).
  	 		
  	}]).controller("TitlesWeWantCtrl", ["$scope","glWebAPI", function($scope, glWebAPI) {
  	
+ 		// Initialize on page load array
+ 		$scope.gamesWeWantTable = [];
+ 		
+ 		// Populate the games we want array, and then push it to the view on page load
+ 		$scope.gamesWeWantTable = function() {
+ 			glWebAPI.getAllGames().then(function(response) {
+ 				for (var i=0; i < response.data.length; i++ ) {
+ 					if ( response.data[i].status === "wantit" ) {
+ 						$scope.gamesWeWantTable = response.data;
+ 					}
+ 				}
+ 			});
+ 		}
+ 		$scope.gamesWeWantTable();
+ 	
  		// Open the Suggest New Title panel
  		$scope.toggleNewTitlePanelOn = function() {
  			console.log("Add title panel opened.");
@@ -40,8 +55,9 @@ angular.module("gameLibrary.controllers", []).
  		$scope.suggestNewTitleTrigger = function(suggestedGame) {
  			console.log("New title has been submitted");
  			glWebAPI.getSuggestNewGame(suggestedGame).then(function(response) {
- 				console.log ( response.data );
- 				//$scope.title = { suggestedGame:"" };
+ 				if ( response.data ) {
+ 					console.log("Game added successfully.");
+ 				}
  			});
  		}
  	

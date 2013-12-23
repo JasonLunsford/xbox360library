@@ -55,7 +55,7 @@ angular.module("gameLibrary.directives", []).
 		
 			// targeting children instead of actual element b/c the <td>s are easier to click on
 			var targetTds = element.children();
-		
+					
 			var toggleBtns = function() {
 				// global settings reset
 				$(this).parents("table").find("button").addClass("invisible");
@@ -66,6 +66,7 @@ angular.module("gameLibrary.directives", []).
 			}
 			
 			targetTds.on("click", toggleBtns);
+
 		};
 		
 		return {
@@ -73,7 +74,7 @@ angular.module("gameLibrary.directives", []).
 			restrict:"A",
 			// using an internal controller to handle buttons, no directive scope set up yet
 		    controller: function($scope, glWebAPI) {
-		    
+		    		    
  				//getGameLibrary();
  	
 				function getGameLibrary() {
