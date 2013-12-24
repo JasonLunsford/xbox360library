@@ -84,12 +84,12 @@ angular.module("gameLibrary.directives", []).
 					});
 				};
 				
-		        $scope.voteForMe = function() {
-		            console.log("Vote for this title!");
+		        $scope.voteForMe = function(gameID) {
+		            console.log("Vote for title id: "+gameID+"!");
 		        };
 
-		        $scope.weOwnThis = function() {
-		            console.log("We own this title, add it to the other column.");
+		        $scope.weOwnThis = function(gameID) {
+		            console.log("We own "+gameID+", add it to the other column.");
 		        };
 		    },
 			link:linkFn

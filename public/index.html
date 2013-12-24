@@ -35,17 +35,17 @@
 						<button class="addTitleBtn" type="button" data-ng-click="toggleNewTitlePanelOn()">Add Title</button>
 					</header>
 					<div class="addNewTitlePanel" data-ng-show="toggleNewTitlePanel">
-						<form role="form">
+						<form role="form" ng-submit="suggestNewTitleTrigger()">
 							<div class="form-group">
 								<label for="newTitleSuggestion">Please enter your title suggestion!</label>
 								<input type="text"
 									   id="newTitleSuggestion"
 									   class="form-control"
 									   placeholder="Careful: Input not validated"
-									   data-ng-model="title.suggestedGame"
+									   data-ng-model="suggestedGame"
 								/>
 							</div>
-							<button type="submit" data-ng-click="suggestNewTitleTrigger(title.suggestedGame)">Submit Title</button>
+							<button type="submit">Submit Title</button>
 						</form>
 						<a href="" data-ng-click="toggleNewTitlePanelOff()">X</a>
 					</div>

@@ -26,8 +26,8 @@
 			<td>{{game.title}}</td>
 			<td>{{game.votes}}</td>
 			<td class="lastItem">
-				<button type="button" class="invisible" data-ng-click="voteForMe()">Vote!</button>
-				<button type="button" class="invisible rightBtn" data-ng-click="weOwnThis()">Own It!</button>
+				<button type="button" class="invisible" data-ng-click="voteForMe(game.id)">Vote!</button>
+				<button type="button" class="invisible rightBtn" data-ng-click="weOwnThis(game.id)">Own It!</button>
 			</td>
 		</tr>
 	</tbody>

@@ -25,12 +25,12 @@ angular.module("gameLibrary.controllers", []).
  	}]).controller("TitlesWeWantCtrl", ["$scope","glWebAPI", function($scope, glWebAPI) {
  	
  		// Initialize on page load array
- 		$scope.gamesWeWantTable = [];
+		$scope.gamesWeWantTable = [];
  		
  		// Populate the games we want array, and then push it to the view on page load
  		$scope.gamesWeWantTable = function() {
  			glWebAPI.getAllGames().then(function(response) {
- 				for (var i=0; i < response.data.length; i++ ) {
+ 				for ( var i=0; i < response.data.length; i++ ) {
  					if ( response.data[i].status === "wantit" ) {
  						$scope.gamesWeWantTable = response.data;
  					}
@@ -52,13 +52,19 @@ angular.module("gameLibrary.controllers", []).
  		}
  		
  		// Add a new suggestion to the Titles We Want list
- 		$scope.suggestNewTitleTrigger = function(suggestedGame) {
+ 		$scope.suggestNewTitleTrigger = function() {
  			console.log("New title has been submitted");
- 			glWebAPI.getSuggestNewGame(suggestedGame).then(function(response) {
+ 			console.log("Current field value: "+$scope.suggestedGame);
+ 			$scope.suggestedGame = "injected";
+ 			glWebAPI.getSuggestNewGame($scope.suggestedGame).then(function(response) {
  				if ( response.data ) {
- 					console.log("Game added successfully.");
+					glWebAPI.getAllGames().then(function(response) {
+						var localGame = response.data.pop();
+						console.log( localGame.title );
+					});
  				}
  			});
+ 			console.log("Main function is done, here is the title: "+$scope.suggestedGame);
  		}
  	
  	}]).controller("TitlesWeOwnCtrl", ["$scope", "glWebAPI", function($scope, glWebAPI) {
