@@ -54,17 +54,19 @@ angular.module("gameLibrary.controllers", []).
  		// Add a new suggestion to the Titles We Want list
  		$scope.suggestNewTitleTrigger = function() {
  			console.log("New title has been submitted");
- 			console.log("Current field value: "+$scope.suggestedGame);
- 			$scope.suggestedGame = "injected";
  			glWebAPI.getSuggestNewGame($scope.suggestedGame).then(function(response) {
  				if ( response.data ) {
 					glWebAPI.getAllGames().then(function(response) {
 						var localGame = response.data.pop();
-						console.log( localGame.title );
+						$scope.gamesWeWantTable.push({
+							title:localGame.title,
+							id:localGame.id,
+							votes:localGame.votes,
+							status:localGame.status
+						});
 					});
  				}
  			});
- 			console.log("Main function is done, here is the title: "+$scope.suggestedGame);
  		}
  	
  	}]).controller("TitlesWeOwnCtrl", ["$scope", "glWebAPI", function($scope, glWebAPI) {

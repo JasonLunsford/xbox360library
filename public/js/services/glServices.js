@@ -47,18 +47,18 @@ angular.module("gameLibrary.services", []).
 
 		// Requires game ID or game title
 		var getVoteForNewGame = function(gameId) {
-			voteForGameURL = voteForGameURL+gameId;
-			return promise(voteForGameURL);
+			var localVoteForGameURL = voteForGameURL+gameId;
+			return promise(localVoteForGameURL);
 		}
 		
 		var getOwnThisGame = function(gameId) {
-			ownThisGameURL = ownThisGameURL+gameId;
-			return promise(ownThisGameURL);
+			var localOwnThisGameURL = ownThisGameURL+gameId;
+			return promise(localOwnThisGameURL);
 		}
 		
 		var getSuggestNewGame = function(gameTitle) {
-			suggestNewGameURL = suggestNewGameURL+gameTitle;
-			return promise(suggestNewGameURL);
+			var localSuggestNewGameURL = suggestNewGameURL+gameTitle;
+			return promise(localSuggestNewGameURL);
 		}
 		
  		// reveal module pattern, makes for a clean API and easier reuse
