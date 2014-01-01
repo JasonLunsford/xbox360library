@@ -17,7 +17,7 @@ angular.module("gameLibrary.services", []).
 		
 		// Configure APIs
 		var checkKeyURL 		= "http://js.nrd.mn/challenge/checkKey?callback=JSON_CALLBACK&apiKey="+myApiKey;
-		var sellGamesURL 		= "http://js.nrd.mn/challenge/clearGames?callback=JSON_CALLBACK&apiKey="+myApiKey;
+		var clearAllGamesURL 	= "http://js.nrd.mn/challenge/clearGames?callback=JSON_CALLBACK&apiKey="+myApiKey;
 		var voteForGameURL 		= "http://js.nrd.mn/challenge/addVote?callback=JSON_CALLBACK&apiKey="+myApiKey+"&id=";
 		var ownThisGameURL 		= "http://js.nrd.mn/challenge/setGotIt?callback=JSON_CALLBACK&apiKey="+myApiKey+"&id=";
 		var suggestNewGameURL 	= "http://js.nrd.mn/challenge/addGame?callback=JSON_CALLBACK&apiKey="+myApiKey+"&title=";
@@ -37,8 +37,8 @@ angular.module("gameLibrary.services", []).
 			return promise(checkKeyURL);
 		}
 		
- 		var getSellAllGames = function() {
-			return promise(sellGamesURL);
+ 		var clearAllGames = function() {
+			return promise(clearAllGamesURL);
 		}
 		
  		var getAllGames = function() {
@@ -64,7 +64,7 @@ angular.module("gameLibrary.services", []).
  		// reveal module pattern, makes for a clean API and easier reuse
  		return {
  			getValidation:getValidation,
- 			getSellAllGames:getSellAllGames,
+ 			clearAllGames:clearAllGames,
  			getAllGames:getAllGames,
  			getVoteForNewGame:getVoteForNewGame,
  			getOwnThisGame:getOwnThisGame,

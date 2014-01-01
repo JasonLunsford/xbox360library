@@ -20,16 +20,16 @@
 				<h1>Our Xbox 360 Game Library</h1>
 			</div>
 			<section class="mainContent">
-				<div class="l-column" data-ng-controller="TitlesWeOwnCtrl">
+				<div class="l-column">
 					<header>
 						<h2>Titles We Own</h2>
-						<button class="sellTitlesBtn" type="button" data-ng-click="sellAllTitles()">Sell All Titles</button>
+						<button class="sellTitlesBtn" type="button" data-ng-click="resetApplication()">Reset Please</button>
 					</header>
 					<div class="tableContainer">
 						<titlesweownview></titlesweownview>
 					</div>
 				</div>
-				<div class="r-column" data-ng-controller="TitlesWeWantCtrl">
+				<div class="r-column">
 					<header>
 						<h2>Titles We Want</h2>
 						<button class="addTitleBtn" type="button" data-ng-click="toggleNewTitlePanelOn()">Add Title</button>
