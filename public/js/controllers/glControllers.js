@@ -4,24 +4,23 @@
 // v1.0
 // glControllers.js
 //
-// Note: Controllers
+// Note: Main application controller
 //--------------------------------
 
 "use strict";
 
-// One global, two nested controllers
 angular.module("gameLibrary.controllers", []).
 	controller("GameLibraryCtrl", ["$scope","glWebAPI", function($scope, glWebAPI) {
 
 		// Uncomment and run to do a quick API Key validation check
 		//validateKey();
 		
- 		// Initialize on page load array
+ 		// Initialize table arrays
 		$scope.gamesWeWantTable = [];
 		$scope.gamesWeOwnTable  = [];
  		
  		// Populate the games we want array, and then push it to the view on page load
-		$scope.initGameTables = function() {
+		(function() {
 			glWebAPI.getAllGames().then(function(response) {
 				for ( var i=0; i < response.data.length; i++ ) {
 					if ( response.data[i].status === "wantit" ) {
@@ -41,9 +40,7 @@ angular.module("gameLibrary.controllers", []).
 					}
 				}
 			});
-		}
-		// $scope.apply() ?
-		$scope.initGameTables();
+		})();
  	
  		// Open the Suggest New Title panel
  		$scope.toggleNewTitlePanelOn = function() {
@@ -71,9 +68,7 @@ angular.module("gameLibrary.controllers", []).
 					votes:localGame.votes,
 					status:localGame.status
 				});
-				
-				$scope.emptyRow = false;
-				$scope.contentRow = true;
+
 			});
  		}
  		
@@ -83,8 +78,6 @@ angular.module("gameLibrary.controllers", []).
 				glWebAPI.clearAllGames().then(function(response) {
 					if ( response.data ) {
 						$scope.gamesWeWantTable.length = 0;
-						$scope.emptyRow = true;
-						$scope.contentRow = false;
 					} else {
 						console.log("Server issue. Please try again in a moment.")
 					}
@@ -94,6 +87,7 @@ angular.module("gameLibrary.controllers", []).
 			}
  		}
 		
+		// Utility function to check API key - remove for production
 		function validateKey() {
 			glWebAPI.getValidation().then(function(response) {
 				( response.data ) ? console.log("API key valid.") : console.log("Server connection or API key failure. Please check API key and try again.")

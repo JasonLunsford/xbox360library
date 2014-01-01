@@ -31,20 +31,7 @@ angular.module("gameLibrary.directives", []).
 			templateUrl:"partials/titleswewant.html", // load partial view via AJAX
 			// using an internal controller to handle buttons, no directive scope set up yet
 		    controller: function($scope, glWebAPI) {
-		    	$scope.emptyRow = true;
-		    	$scope.contentRow = false;
- 				getGameLibrary();
- 	
-				function getGameLibrary() {
-					glWebAPI.getAllGames().then(function(response) {
-						if ( response.data.length > 0 ) {
-							$scope.emptyRow = false;
-							$scope.contentRow = true;
-							$scope.$watch.gamesWeWant = response.data;
-							console.log( response.data );
-						}
-					});
-				};
+
 			},
 			link:linkFn
 		}
@@ -74,18 +61,23 @@ angular.module("gameLibrary.directives", []).
 			restrict:"A",
 			// using an internal controller to handle buttons, no directive scope set up yet
 		    controller: function($scope, glWebAPI) {
-		    		    
- 				//getGameLibrary();
- 	
-				function getGameLibrary() {
-					glWebAPI.getAllGames().then(function(response) {
-			
-						$scope.$watch.gamesWeWant = glWebAPI.response();
-					});
-				};
-				
+		    		    				
 		        $scope.voteForMe = function(gameID) {
-		            console.log("Vote for title id: "+gameID+"!");
+					glWebAPI.getVoteForNewGame(gameID).then(function(response) {
+						if ( response.data ) {
+							console.log("Vote registered for game ID: "+gameID)
+						} else {
+							console.log("API Key issue. Please check the key and try again.")
+						}
+					});
+					
+					glWebAPI.getAllGames().then(function(response) {
+						for ( var i=0; i < response.data.length; i++ ) {
+							if ( $scope.gamesWeWantTable[i].id === gameID ) {
+								$scope.gamesWeWantTable[i].votes = response.data[i].votes;
+							}
+						}
+					});
 		        };
 
 		        $scope.weOwnThis = function(gameID) {
