@@ -161,7 +161,9 @@
 		.l-column { width:100%; }
 		.r-column { width:100%; }
 		
-		.l-column > header { padding:0px; }
+		.l-column header { padding:0px; }
+		
+		.mainContent .sellTitlesBtn { right:0px; }
 		
 		.tableContainer { padding:0px; }
 	}
