@@ -12,12 +12,44 @@
 angular.module("gameLibrary.controllers", []).
 	controller("GameLibraryCtrl", ["$scope","glWebAPI", function($scope, glWebAPI) {
 
-		// Uncomment and run to do a quick API Key validation check
-		//validateKey();
-		
  		// Initialize table arrays
 		$scope.gamesWeWantTable = [];
 		$scope.gamesWeOwnTable  = [];
+		
+		// Chained promises for the Own It functionality
+		var suggestThisGame = function(gameSuggestion) {
+				// this callback bubbles up to the next function inline
+				return glWebAPI
+						.getSuggestNewGame(gameSuggestion)
+						.then( function(suggestionResult)
+						{
+							// this callback bubble is the actual promise value
+							return suggestionResult.data
+						});
+			},
+			suggestThisGameGetLibrary = function(suggestionResult)
+			{
+				return glWebAPI
+						.getAllGames()
+						.then( function(libraryResult)
+						{
+							// if the Want -> Own process failed (due to server rejection - likely API key failure), this View update will not happen
+							if ( suggestionResult ) {
+								var localGame = libraryResult.data.pop();
+								
+								$scope.gamesWeWantTable.push({
+									title:localGame.title,
+									id:localGame.id,
+									votes:localGame.votes,
+									status:localGame.status
+								});
+							} else {
+								console.log("Server rejected vote. API key issues maybe?");
+								return false;
+							}
+						});
+			};
+		
  		
  		// Populate the games we want array, and then push it to the view on page load
 		(function() {
@@ -41,35 +73,23 @@ angular.module("gameLibrary.controllers", []).
 				}
 			});
 		})();
+
  	
- 		// Open the Suggest New Title panel
+ 		// Add Title button
  		$scope.toggleNewTitlePanelOn = function() {
- 			console.log("Add title panel opened.");
  			return $scope.toggleNewTitlePanel = true;
  		}
  		
- 		// Close the Suggest New Title panel
+ 		// Close Suggest New Title panel button
  		$scope.toggleNewTitlePanelOff = function() {
- 			console.log("Closed the add title panel.");
+ 			$scope.suggestedGame = null;
  			return $scope.toggleNewTitlePanel = false;
  		}
  		
- 		// Add a new suggestion to the Titles We Want list
+ 		// Submit Title button
  		$scope.suggestNewTitleTrigger = function() {
- 			glWebAPI.getSuggestNewGame($scope.suggestedGame).then(function(response) {
-				( response.data ) ? console.log("Game submitted successfully.") : console.log("API Key issue. Please check the key and try again.")
- 			});
-			glWebAPI.getAllGames().then(function(response) {
-				var localGame = response.data.pop();
-				
-				$scope.gamesWeWantTable.push({
-					title:localGame.title,
-					id:localGame.id,
-					votes:localGame.votes,
-					status:localGame.status
-				});
-
-			});
+			suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
+			$scope.suggestedGame = null;
  		}
  		
  		// Application Reset
@@ -78,6 +98,9 @@ angular.module("gameLibrary.controllers", []).
 				glWebAPI.clearAllGames().then(function(response) {
 					if ( response.data ) {
 						$scope.gamesWeWantTable.length = 0;
+						$scope.gamesWeOwnTable.length = 0;
+						$scope.suggestedGame = null;
+						return $scope.toggleNewTitlePanel = false;
 					} else {
 						console.log("Server issue. Please try again in a moment.")
 					}
@@ -86,12 +109,5 @@ angular.module("gameLibrary.controllers", []).
 				console.log("Canceled - for now!");
 			}
  		}
-		
-		// Utility function to check API key - remove for production
-		function validateKey() {
-			glWebAPI.getValidation().then(function(response) {
-				( response.data ) ? console.log("API key valid.") : console.log("Server connection or API key failure. Please check API key and try again.")
-			});
-		};
- 	 		
+		 	 		
  	}]);

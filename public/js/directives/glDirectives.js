@@ -59,29 +59,106 @@ angular.module("gameLibrary.directives", []).
 		return {
 			// explicit directive type declaration, just to keep things organized
 			restrict:"A",
-			// using an internal controller to handle buttons, no directive scope set up yet
+			// using an internal controller to handle buttons, using parent scope
 		    controller: function($scope, glWebAPI) {
-		    		    				
-		        $scope.voteForMe = function(gameID) {
-					glWebAPI.getVoteForNewGame(gameID).then(function(response) {
-						if ( response.data ) {
-							console.log("Vote registered for game ID: "+gameID)
-						} else {
-							console.log("API Key issue. Please check the key and try again.")
-						}
-					});
+				
+				// Chained promises for the Vote functionality, flattened for easy consumption
+				var voteForTheGame = function(gameID) {
+						// this callback bubbles up to the next function inline
+						return glWebAPI
+								.getVoteForNewGame(gameID)
+								.then( function(voteResult)
+								{
+									// borrowing $scope (very) briefly to retain gameID
+									$scope.gameID = gameID;
+									// this value bubbles out, aka the fulfilled promise value
+									return voteResult.data
+								});
+				    },
+				    voteForTheGameGetLibrary = function(voteResult)
+				    {
+						return glWebAPI
+								.getAllGames()
+								.then( function(libraryResult)
+								{
+									// if the Voting process failed (due to server rejection - likely API key failure), this View update will not happen
+									if ( voteResult ) {
+										// spin through master object of all returned games, find the game with the gameID that we registered a vote for
+										for ( var i=0; i < libraryResult.data.length; i++ ) {
+											if ( libraryResult.data[i].id === $scope.gameID ) {
+												var localGame = libraryResult.data[i];
+												
+												// game found and stored in localGame, now spin through smaller array of games we want, and update vote count in the View
+												for ( var j=0; j < $scope.gamesWeWantTable.length; j++ ) {
+													if ( $scope.gamesWeWantTable[j].id === $scope.gameID ) {
+														$scope.gamesWeWantTable[j].votes = localGame.votes;
+													}
+												}
+												return;
+											}
+										}
+									} else {
+										console.log("Server rejected vote. API key issues maybe?");
+										return false;
+									}
+								});
+					};
 					
-					glWebAPI.getAllGames().then(function(response) {
-						for ( var i=0; i < response.data.length; i++ ) {
-							if ( $scope.gamesWeWantTable[i].id === gameID ) {
-								$scope.gamesWeWantTable[i].votes = response.data[i].votes;
-							}
-						}
-					});
+				// Chained promises for the Own It functionality
+				var weOwnTheGame = function(gameID) {
+						// this callback bubbles up to the next function inline
+						return glWebAPI
+								.getOwnThisGame(gameID)
+								.then( function(purchaseResult)
+								{
+									// this callback bubble is the actual promise value
+									return purchaseResult.data
+								});
+				    },
+				    weOwnTheGameGetLibrary = function(purchaseResult)
+				    {
+						return glWebAPI
+								.getAllGames()
+								.then( function(libraryResult)
+								{
+									// if the Want -> Own process failed (due to server rejection - likely API key failure), this View update  will not happen
+									if ( purchaseResult ) {
+										// extremely expensive table rebuilds, but done to ensure IE8 compatibility (IE8 does not like Array.prototype.splice() )
+										$scope.gamesWeWantTable.length = 0;
+										$scope.gamesWeOwnTable.length = 0;
+										for ( var i=0; i < libraryResult.data.length; i++ ) {
+											if ( libraryResult.data[i].status === "wantit" ) {
+												$scope.gamesWeWantTable.push({
+													title:libraryResult.data[i].title,
+													id:libraryResult.data[i].id,
+													votes:libraryResult.data[i].votes,
+													status:libraryResult.data[i].status
+												});
+											} else if ( libraryResult.data[i].status === "gotit" ) {
+												$scope.gamesWeOwnTable.push({
+													title:libraryResult.data[i].title,
+													id:libraryResult.data[i].id,
+													votes:libraryResult.data[i].votes,
+													status:libraryResult.data[i].status
+												});
+											}
+										}
+									} else {
+										console.log("Server rejected vote. API key issues maybe?");
+										return false;
+									}
+								});
+					};
+					
+					
+		        $scope.voteForMe = function(gameID) {
+					voteForTheGame( gameID ).then( voteForTheGameGetLibrary );
+					$scope.gameID = null; // this works because it will run before promise gets fulfilled
 		        };
 
 		        $scope.weOwnThis = function(gameID) {
-		            console.log("We own "+gameID+", add it to the other column.");
+					weOwnTheGame( gameID ).then( weOwnTheGameGetLibrary );
+					$scope.gameID = null; // this works because it will run before promise gets fulfilled
 		        };
 		    },
 			link:linkFn
