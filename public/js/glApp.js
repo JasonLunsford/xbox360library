@@ -12,6 +12,7 @@
 // Declare app module with all necessary dependencies, and then configure URL routing
 angular.module("gameLibrary", [
 	"ngRoute",
+	"ngStorage",
 	"gameLibrary.services",
 	"gameLibrary.directives",
 	"gameLibrary.controllers"

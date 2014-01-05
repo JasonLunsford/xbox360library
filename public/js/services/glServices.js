@@ -26,7 +26,6 @@ angular.module("gameLibrary.services", []).
 		// prepare promise, no initial value
 		var promise;
 		
-		// by my convention, only place "var" in front of function variables that will be pubically available
 		// use Angular's http service in conjunction with the JSONP wrapper and Promise feature to allow async loading
  		promise = function(targetURL) {
  			return $http.jsonp(targetURL).success(function (data) {}).error(function () {});
@@ -71,4 +70,57 @@ angular.module("gameLibrary.services", []).
  			getSuggestNewGame:getSuggestNewGame
  		}
  		
+	}])
+	.factory("glRules", ["$localStorage","$sessionStorage", function($localStorage,$sessionStorage) {
+		
+		var glClock;
+
+		glClock = {
+			init : function()
+			{
+				return console.log("hello world");
+			}	
+		}
+
+		setInterval(glClock.init(), 1000);
+				
+		var setDayAndTime = function() {
+			//$localStorage.currentDay = parseInt(setNowObj.getDay(), 10);
+			//$localStorage.currentTime = parseFloat(setNowObj.getHours()+(setNowObj.getMinutes() / 60));
+			$localStorage.currentDay  = glClock.getTheDay();
+			$localStorage.currentTime = glClock.getTheTime();
+		};
+		
+		var getStoredDay = function() {
+			return $localStorage.currentDay;
+		};
+		
+		var getStoredTime = function() {
+			return $localStorage.currentTime;
+		};
+		
+		var getCurrentDay = function() {
+			return glClock.getTheDay();
+			//return parseInt(setDayNowObj.getDay(), 10);
+		};
+		
+		var getCurrentTime = function() {
+			return glClock.getTheTime();
+			//return parseFloat(setTimeNowObj.getHours()+(setTimeNowObj.getMinutes() / 60));
+		};
+
+		var resetAll = function() {
+			// reset all counters
+			$localStorage.$reset();
+		};
+		
+ 		return {
+ 			setDayAndTime:setDayAndTime,
+ 			getStoredDay:getStoredDay,
+ 			getStoredTime:getStoredTime,
+ 			getCurrentDay:getCurrentDay,
+ 			getCurrentTime:getCurrentTime,
+ 			resetAll:resetAll
+ 		}
+		
 	}]);

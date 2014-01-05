@@ -10,7 +10,7 @@
 "use strict";
 
 angular.module("gameLibrary.controllers", []).
-	controller("GameLibraryCtrl", ["$scope","glWebAPI", function($scope, glWebAPI) {
+	controller("GameLibraryCtrl", ["$scope","glWebAPI","glRules", function($scope, glWebAPI, glRules) {
 
  		// Initialize table arrays
 		$scope.gamesWeWantTable = [];
@@ -88,6 +88,30 @@ angular.module("gameLibrary.controllers", []).
  		
  		// Submit Title button
  		$scope.suggestNewTitleTrigger = function() {
+			var localDayDelta  = glRules.getCurrentDay() - glRules.getStoredDay();
+			var localTimeDelta = glRules.getCurrentTime() - glRules.getStoredTime();
+			var localWeekend   = ( glRules.getCurrentDay() === 6 ) ? true : ( glRules.getCurrentDay() === 0 ) ? true : false;
+			
+			if ( glRules.getStoredDay() >= 0 ) {
+				if ( localDayDelta === 0 || localWeekend ) {
+					console.log("sorry can't vote / suggest - either too soon or a weekend, action DENIED!");
+					console.log(glRules.getCurrentTime());
+					console.log(glRules.getStoredTime());
+				} else if ( localDayDelta === 1 ) {
+					if ( localTimeDelta >= 0 ) {
+						console.log("at least 24 hours since last vote / suggestion, action approved!");
+					} else {
+						console.log("less than 24 hours have passed since last vote / suggestion, action DENIED!");
+					}
+				} else {
+					console.log("more than one day has passed since last vote / suggestion, action approved!");
+					// add voting logic here
+					// glRules.setDayAndTime();
+				}
+			} else {
+				console.log("first vote / suggestion");
+				glRules.setDayAndTime();
+			}
 			suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
 			$scope.suggestedGame = null;
  		}
@@ -100,6 +124,7 @@ angular.module("gameLibrary.controllers", []).
 						$scope.gamesWeWantTable.length = 0;
 						$scope.gamesWeOwnTable.length = 0;
 						$scope.suggestedGame = null;
+						glRules.resetAll();
 						return $scope.toggleNewTitlePanel = false;
 					} else {
 						console.log("Server issue. Please try again in a moment.")

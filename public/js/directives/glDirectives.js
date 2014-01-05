@@ -60,7 +60,7 @@ angular.module("gameLibrary.directives", []).
 			// explicit directive type declaration, just to keep things organized
 			restrict:"A",
 			// using an internal controller to handle buttons, using parent scope
-		    controller: function($scope, glWebAPI) {
+		    controller: function($scope, glWebAPI, glRules) {
 				
 				// Chained promises for the Vote functionality, flattened for easy consumption
 				var voteForTheGame = function(gameID) {
@@ -152,6 +152,32 @@ angular.module("gameLibrary.directives", []).
 					
 					
 		        $scope.voteForMe = function(gameID) {
+					var localDayDelta  = glRules.getCurrentDay() - glRules.getStoredDay();
+					var localTimeDelta = glRules.getCurrentTime() - glRules.getStoredTime();
+					var localWeekend   = ( glRules.getCurrentDay() === 6 ) ? true : ( glRules.getCurrentDay() === 0 ) ? true : false;
+					
+					if ( glRules.getStoredDay() >= 0 ) {
+						if ( localDayDelta === 0 || localWeekend ) {
+							console.log("sorry can't vote / suggest - either too soon or a weekend, action DENIED!");
+							console.log(glRules.getCurrentTime());
+							console.log(glRules.getStoredTime());
+						} else if ( localDayDelta === 1 ) {
+							if ( localTimeDelta >= 0 ) {
+								console.log("at least 24 hours since last vote / suggestion, action approved!");
+
+							} else {
+								console.log("less than 24 hours have passed since last vote / suggestion, action DENIED!");
+
+							}
+						} else {
+							console.log("more than one day has passed since last vote / suggestion, action approved!");
+							// add voting logic here
+							// glRules.setDayAndTime();
+						}
+					} else {
+						console.log("first vote / suggestion");
+						glRules.setDayAndTime();
+					}
 					voteForTheGame( gameID ).then( voteForTheGameGetLibrary );
 					$scope.gameID = null; // this works because it will run before promise gets fulfilled
 		        };
