@@ -94,25 +94,28 @@ angular.module("gameLibrary.controllers", []).
 			
 			if ( glRules.getStoredDay() >= 0 ) {
 				if ( localDayDelta === 0 || localWeekend ) {
-					console.log("sorry can't vote / suggest - either too soon or a weekend, action DENIED!");
-					console.log(glRules.getCurrentTime());
-					console.log(glRules.getStoredTime());
+					// sorry can't vote / suggest - either too soon or a weekend, action DENIED!
+					// lock down UI / alert user
 				} else if ( localDayDelta === 1 ) {
 					if ( localTimeDelta >= 0 ) {
-						console.log("at least 24 hours since last vote / suggestion, action approved!");
+						// at least 24 hours since last vote / suggestion, action approved!
+						suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
+						glRules.setDayAndTime();
 					} else {
-						console.log("less than 24 hours have passed since last vote / suggestion, action DENIED!");
+						// less than 24 hours have passed since last vote / suggestion, action DENIED!
+						// lock down UI / alert user
 					}
 				} else {
-					console.log("more than one day has passed since last vote / suggestion, action approved!");
-					// add voting logic here
-					// glRules.setDayAndTime();
+					// more than one day has passed since last vote / suggestion, action approved!
+					suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
+					glRules.setDayAndTime();
 				}
 			} else {
-				console.log("first vote / suggestion");
+				// first vote / suggestion
+				suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
 				glRules.setDayAndTime();
 			}
-			suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
+			
 			$scope.suggestedGame = null;
  		}
  		

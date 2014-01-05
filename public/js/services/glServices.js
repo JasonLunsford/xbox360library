@@ -73,22 +73,28 @@ angular.module("gameLibrary.services", []).
 	}])
 	.factory("glRules", ["$localStorage","$sessionStorage", function($localStorage,$sessionStorage) {
 		
+		// Initialize timer variable and associated time variables
 		var glClock;
+		var theDay, theTime;
 
-		glClock = {
-			init : function()
-			{
-				return console.log("hello world");
-			}	
+		// Initialize, Set, and Clear Timer
+		function initGlClock() {
+			 var now = new Date();
+			 theDay = parseInt(now.getDay(), 10);
+			 theTime = parseFloat(parseFloat(now.getHours()+(now.getMinutes() / 60)+(now.getSeconds() / 60)).toFixed(3));
 		}
-
-		setInterval(glClock.init(), 1000);
+		function startGlClock() {
+			glClock = setInterval(initGlClock, 1000);
+		}
+		function stopGlClock() { clearInterval(glClock); }
+		
+		// Start timer on page load
+		startGlClock();
 				
+		// Set Day and Time for consumption by controllers
 		var setDayAndTime = function() {
-			//$localStorage.currentDay = parseInt(setNowObj.getDay(), 10);
-			//$localStorage.currentTime = parseFloat(setNowObj.getHours()+(setNowObj.getMinutes() / 60));
-			$localStorage.currentDay  = glClock.getTheDay();
-			$localStorage.currentTime = glClock.getTheTime();
+			$localStorage.currentDay  = theDay;
+			$localStorage.currentTime = theTime;
 		};
 		
 		var getStoredDay = function() {
@@ -100,17 +106,16 @@ angular.module("gameLibrary.services", []).
 		};
 		
 		var getCurrentDay = function() {
-			return glClock.getTheDay();
-			//return parseInt(setDayNowObj.getDay(), 10);
+			return theDay;
 		};
 		
 		var getCurrentTime = function() {
-			return glClock.getTheTime();
-			//return parseFloat(setTimeNowObj.getHours()+(setTimeNowObj.getMinutes() / 60));
+			return theTime;
 		};
 
 		var resetAll = function() {
-			// reset all counters
+			// stop the clock and clear local storage
+			stopGlClock();
 			$localStorage.$reset();
 		};
 		
