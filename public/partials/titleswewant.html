@@ -14,7 +14,7 @@
 		</tr>
 	</tfoot>
 	<tbody>
-		<tr data-activaterow data-ng-repeat="game in gamesWeWantTable|orderBy:'votes'">
+		<tr data-activaterow data-ng-repeat="game in gamesWeWantTable|orderBy:'-votes'">
 			<td>{{game.title}}</td>
 			<td>{{game.votes}}</td>
 			<td class="lastItem">

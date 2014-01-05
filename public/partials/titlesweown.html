@@ -10,7 +10,7 @@
 		</tr>
 	</tfoot>
 	<tbody>
-		<tr data-ng-repeat="game in gamesWeOwnTable">
+		<tr data-ng-repeat="game in gamesWeOwnTable|orderBy:'+title'">
 			<td>{{game.title}}</td>
 		</tr>
 	</tbody>
