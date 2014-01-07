@@ -72,7 +72,7 @@ angular.module("gameLibrary.controllers", []).
 					}
 				}
 			});
-		})();
+		}());
 
  	
  		// Add Title button
@@ -88,19 +88,19 @@ angular.module("gameLibrary.controllers", []).
  		
  		// Submit Title button
  		$scope.suggestNewTitleTrigger = function() {
-			var localDayDelta  = glRules.getCurrentDay() - glRules.getStoredDay();
-			var localTimeDelta = glRules.getCurrentTime() - glRules.getStoredTime();
-			var localWeekend   = ( glRules.getCurrentDay() === 6 ) ? true : ( glRules.getCurrentDay() === 0 ) ? true : false;
+			var localWeekend   		 = ( glRules.getCurrentDay() === 6 ) ? true : ( glRules.getCurrentDay() === 0 ) ? true : false;
+			var localTimeDelta 		 = glRules.getCurrentTime() - glRules.getStoredTime();
+			var localTimeStampDelta  = glRules.getCurrentTimeStamp() - glRules.getStoredTimeStamp();
 			
-			if ( glRules.getStoredDay() >= 0 ) {
-				if ( localDayDelta === 0 || localWeekend ) {
+			if ( glRules.getStoredTimeStamp() >= 0 ) {
+				if ( localTimeStampDelta === 0 || localWeekend ) {
 					// sorry can't vote / suggest - either too soon or a weekend, action DENIED!
 					// lock down UI / alert user
-				} else if ( localDayDelta === 1 ) {
+				} else if ( localTimeStampDelta === 1 ) {
 					if ( localTimeDelta >= 0 ) {
 						// at least 24 hours since last vote / suggestion, action approved!
 						suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
-						glRules.setDayAndTime();
+						glRules.setTimeAndTimeStamp();
 					} else {
 						// less than 24 hours have passed since last vote / suggestion, action DENIED!
 						// lock down UI / alert user
@@ -108,12 +108,12 @@ angular.module("gameLibrary.controllers", []).
 				} else {
 					// more than one day has passed since last vote / suggestion, action approved!
 					suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
-					glRules.setDayAndTime();
+					glRules.setTimeAndTimeStamp();
 				}
 			} else {
 				// first vote / suggestion
 				suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
-				glRules.setDayAndTime();
+				glRules.setTimeAndTimeStamp();
 			}
 			
 			$scope.suggestedGame = null;

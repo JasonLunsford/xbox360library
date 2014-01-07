@@ -73,58 +73,80 @@ angular.module("gameLibrary.services", []).
 	}])
 	.factory("glRules", ["$localStorage","$sessionStorage", function($localStorage,$sessionStorage) {
 		
-		// Initialize timer variable and associated time variables
-		var glClock;
-		var theDay, theTime;
-
-		// Initialize, Set, and Clear Timer
-		function initGlClock() {
-			 var now = new Date();
-			 theDay = parseInt(now.getDay(), 10);
-			 theTime = parseFloat(parseFloat(now.getHours()+(now.getMinutes() / 60)+(now.getSeconds() / 60)).toFixed(3));
-		}
-		function startGlClock() {
-			glClock = setInterval(initGlClock, 1000);
-		}
-		function stopGlClock() { clearInterval(glClock); }
-		
-		// Start timer on page load
-		startGlClock();
+		// Modularize the timer for easy portability - yay code reuse!
+		var glClock = (function() {
+			// Private
+			var my = {},
+				internalClock,
+				theDay,
+				theTime,
+				theTimeStamp;
 				
-		// Set Day and Time for consumption by controllers
-		var setDayAndTime = function() {
-			$localStorage.currentDay  = theDay;
-			$localStorage.currentTime = theTime;
-		};
+			// fancy pants use of parseFloat is just to ensure Numbers are passed, and not strings pretending to be numbers
+			function initGlClock() {
+				 // prepare timestamp values to ensure consistent number of digits, therefore future calculations will work as expected
+				 var now 	  	   = new Date();
+				 var adjustedMonth = ( now.getMonth() <= 9 ) ? "0"+now.getMonth() : now.getMonth();
+				 var adjustedDate  = ( now.getDate() <= 9 ) ? "0"+now.getDate() : now.getDate();
+				 
+				 theDay  	  = now.getDay();
+				 theTime 	  = parseFloat(parseFloat(now.getHours()+(now.getMinutes()/60)+(now.getSeconds()/60)).toFixed(3));
+				 theTimeStamp = parseInt(now.getFullYear()+adjustedMonth+adjustedDate, 10);
+			}
+			
+			// Public
+			my.startGlClock = function() { internalClock = setInterval(initGlClock, 1000); }
+			my.stopGlClock  = function() { clearInterval(internalClock); }
+			
+			my.theDay 		= function() { return theDay; };
+			my.theTime 		= function() { return theTime; };
+			my.theTimeStamp = function() { return theTimeStamp; };
+			
+			return my;
+		}());
 		
-		var getStoredDay = function() {
-			return $localStorage.currentDay;
+		// Start clock ticking on page load
+		glClock.startGlClock();
+				
+		// Set Time and Timestamp for consumption by controllers
+		var setTimeAndTimeStamp = function() {
+			$localStorage.storedTime 	  = glClock.theTime();
+			$localStorage.storedTimeStamp = glClock.theTimeStamp();
 		};
 		
 		var getStoredTime = function() {
-			return $localStorage.currentTime;
+			return $localStorage.storedTime;
+		};
+		
+		var getStoredTimeStamp = function() {
+			return $localStorage.storedTimeStamp;
 		};
 		
 		var getCurrentDay = function() {
-			return theDay;
+			return glClock.theDay();
 		};
 		
 		var getCurrentTime = function() {
-			return theTime;
+			return glClock.theTime();
+		};
+		
+		var getCurrentTimeStamp = function() {
+			return glClock.theTimeStamp();
 		};
 
 		var resetAll = function() {
 			// stop the clock and clear local storage
-			stopGlClock();
+			glClock.stopGlClock();
 			$localStorage.$reset();
 		};
 		
  		return {
- 			setDayAndTime:setDayAndTime,
- 			getStoredDay:getStoredDay,
+ 			setTimeAndTimeStamp:setTimeAndTimeStamp,
  			getStoredTime:getStoredTime,
+ 			getStoredTimeStamp:getStoredTimeStamp,
  			getCurrentDay:getCurrentDay,
  			getCurrentTime:getCurrentTime,
+ 			getCurrentTimeStamp:getCurrentTimeStamp,
  			resetAll:resetAll
  		}
 		
