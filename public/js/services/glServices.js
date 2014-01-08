@@ -1,10 +1,14 @@
 //--------------------------------
-// JS NAT Challenge Core JS
+// Our Xbox 360 Game Library
 // Jason Lunsford
 // v1.0
 // glServices.js
 //
 // Note: Services
+//
+// A special shout out to Nerdery.com for allowing me the use of their Web APIs for the duration of 
+// the first version of this project. Very clean and well documented. Thank you!
+//
 //--------------------------------
 
 "use strict";

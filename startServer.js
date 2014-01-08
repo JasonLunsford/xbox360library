@@ -1,3 +1,12 @@
+//--------------------------------
+// Our Xbox 360 Game Library
+// Jason Lunsford
+// v1.0
+// startServer.js
+//
+// Note: Optional Node.js server config
+//--------------------------------
+
 var path = require('path');
 var express = require('express');
 var app = express();

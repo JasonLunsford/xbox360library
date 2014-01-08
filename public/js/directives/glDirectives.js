@@ -1,5 +1,5 @@
 //--------------------------------
-// JS NAT Challenge Core JS
+// Our Xbox 360 Game Library
 // Jason Lunsford
 // v1.0
 // glDirectives.js
