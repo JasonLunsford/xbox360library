@@ -7,11 +7,13 @@
 // Note: Non-Angular code only
 //--------------------------------
 
-// Protect namespace, leave angular alone
+"use strict";
+    
 (function() {
     // enforce good practices and catch me when I get lazy
-    "use strict";
+
     (function($) {
-		console.log("hello world");
+		console.log("jQuery loaded.");
     })(jQuery);
+    
 })();

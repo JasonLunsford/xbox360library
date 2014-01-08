@@ -79,19 +79,14 @@ angular.module("gameLibrary.services", []).
 			var my = {},
 				internalClock,
 				theDay,
-				theTime,
-				theTimeStamp;
-				
-			// fancy pants use of parseFloat is just to ensure Numbers are passed, and not strings pretending to be numbers
+				theTime;
+
 			function initGlClock() {
-				 // prepare timestamp values to ensure consistent number of digits, therefore future calculations will work as expected
-				 var now 	  	   = new Date();
-				 var adjustedMonth = ( now.getMonth() <= 9 ) ? "0"+now.getMonth() : now.getMonth();
-				 var adjustedDate  = ( now.getDate() <= 9 ) ? "0"+now.getDate() : now.getDate();
+				 var now 	   = new Date();
+				 var mySeconds = now.getTime() / 1000; // get seconds since epoch
 				 
-				 theDay  	  = now.getDay();
-				 theTime 	  = parseFloat(parseFloat(now.getHours()+(now.getMinutes()/60)+(now.getSeconds()/60)).toFixed(3));
-				 theTimeStamp = parseInt(now.getFullYear()+adjustedMonth+adjustedDate, 10);
+				 theDay  	   = now.getDay();
+				 theTime 	   = parseFloat(parseFloat((mySeconds / 60) / 60).toFixed(3)); // convert seconds to hours, rounded to 3, reconverted to a Number
 			}
 			
 			// Public
@@ -100,7 +95,6 @@ angular.module("gameLibrary.services", []).
 			
 			my.theDay 		= function() { return theDay; };
 			my.theTime 		= function() { return theTime; };
-			my.theTimeStamp = function() { return theTimeStamp; };
 			
 			return my;
 		}());
@@ -108,20 +102,15 @@ angular.module("gameLibrary.services", []).
 		// Start clock ticking on page load
 		glClock.startGlClock();
 				
-		// Set Time and Timestamp for consumption by controllers
-		var setTimeAndTimeStamp = function() {
-			$localStorage.storedTime 	  = glClock.theTime();
-			$localStorage.storedTimeStamp = glClock.theTimeStamp();
+		// Set Time in HTML5 Local Storage for consumption by controllers
+		var setStoredTime = function() {
+			$localStorage.storedTime = glClock.theTime();
 		};
 		
 		var getStoredTime = function() {
 			return $localStorage.storedTime;
 		};
-		
-		var getStoredTimeStamp = function() {
-			return $localStorage.storedTimeStamp;
-		};
-		
+				
 		var getCurrentDay = function() {
 			return glClock.theDay();
 		};
@@ -130,10 +119,6 @@ angular.module("gameLibrary.services", []).
 			return glClock.theTime();
 		};
 		
-		var getCurrentTimeStamp = function() {
-			return glClock.theTimeStamp();
-		};
-
 		var resetAll = function() {
 			// stop the clock and clear local storage
 			glClock.stopGlClock();
@@ -141,12 +126,10 @@ angular.module("gameLibrary.services", []).
 		};
 		
  		return {
- 			setTimeAndTimeStamp:setTimeAndTimeStamp,
+ 			setStoredTime:setStoredTime,
  			getStoredTime:getStoredTime,
- 			getStoredTimeStamp:getStoredTimeStamp,
  			getCurrentDay:getCurrentDay,
  			getCurrentTime:getCurrentTime,
- 			getCurrentTimeStamp:getCurrentTimeStamp,
  			resetAll:resetAll
  		}
 		

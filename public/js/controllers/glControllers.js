@@ -33,7 +33,6 @@ angular.module("gameLibrary.controllers", []).
 						.getAllGames()
 						.then( function(libraryResult)
 						{
-							// if the Want -> Own process failed (due to server rejection - likely API key failure), this View update will not happen
 							if ( suggestionResult ) {
 								var localGame = libraryResult.data.pop();
 								
@@ -44,14 +43,14 @@ angular.module("gameLibrary.controllers", []).
 									status:localGame.status
 								});
 							} else {
-								console.log("Server rejected vote. API key issues maybe?");
-								return false;
+								console.log("Possible server API issue. Please check key and try again.");
+								return;
 							}
 						});
 			};
 		
  		
- 		// Populate the games we want array, and then push it to the view on page load
+ 		// Populate the games we want / games we own arrays, and then push them into the View on page load
 		(function() {
 			glWebAPI.getAllGames().then(function(response) {
 				for ( var i=0; i < response.data.length; i++ ) {
@@ -88,34 +87,39 @@ angular.module("gameLibrary.controllers", []).
  		
  		// Submit Title button
  		$scope.suggestNewTitleTrigger = function() {
-			var localWeekend   		 = ( glRules.getCurrentDay() === 6 ) ? true : ( glRules.getCurrentDay() === 0 ) ? true : false;
-			var localTimeDelta 		 = glRules.getCurrentTime() - glRules.getStoredTime();
-			var localTimeStampDelta  = glRules.getCurrentTimeStamp() - glRules.getStoredTimeStamp();
+			// locals
+			var localTestTitle,
+				localFreshSuggestion = $scope.suggestedGame.toLowerCase();
 			
-			if ( glRules.getStoredTimeStamp() >= 0 ) {
-				if ( localTimeStampDelta === 0 || localWeekend ) {
-					// sorry can't vote / suggest - either too soon or a weekend, action DENIED!
-					// lock down UI / alert user
-				} else if ( localTimeStampDelta === 1 ) {
-					if ( localTimeDelta >= 0 ) {
-						// at least 24 hours since last vote / suggestion, action approved!
-						suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
-						glRules.setTimeAndTimeStamp();
-					} else {
-						// less than 24 hours have passed since last vote / suggestion, action DENIED!
-						// lock down UI / alert user
-					}
-				} else {
-					// more than one day has passed since last vote / suggestion, action approved!
-					suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
-					glRules.setTimeAndTimeStamp();
+			// check for weekend, and whether last action happened within 24 hours (or just at the 24 hour mark)
+			var localWeekendCheck = ( glRules.getCurrentDay() === 6 ) ? true : ( glRules.getCurrentDay() === 0 ) ? true : false; // true, not a weekday
+			var localOneFullDay   = ( (glRules.getStoredTime() + 24) >= glRules.getCurrentTime() ) ? true : false; 				 // true, 24 hours have not passed
+
+			for (var i=0; i < $scope.gamesWeWantTable.length; i++ ) {
+				localTestTitle = $scope.gamesWeWantTable[i].title.toLowerCase();
+				if ( localTestTitle === localFreshSuggestion ) {
+					console.log("Oops - someone already made that suggestion. Try another title?");
+					$scope.suggestedGame = null;
+					return; // exits the entire function
 				}
-			} else {
-				// first vote / suggestion
-				suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
-				glRules.setTimeAndTimeStamp();
 			}
 			
+			// determine if suggesting allowed, given time and day
+			if ( glRules.getStoredTime() >= 0 ) {
+				if ( localOneFullDay || localWeekendCheck ) {
+					// To Do: lock down UI / alert user
+					console.log("You suggested a title within the last 24 hours, or this is a weekend. Please try again later.");
+				} else {
+					console.log("Thank you for your new title suggestion.");
+					suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
+					glRules.setStoredTime();
+				}
+			} else {
+				console.log("Thank you for your first title suggestion.");
+				suggestThisGame( $scope.suggestedGame ).then( suggestThisGameGetLibrary );
+				glRules.setStoredTime();
+			}
+
 			$scope.suggestedGame = null;
  		}
  		
@@ -130,11 +134,11 @@ angular.module("gameLibrary.controllers", []).
 						glRules.resetAll();
 						return $scope.toggleNewTitlePanel = false;
 					} else {
-						console.log("Server issue. Please try again in a moment.")
+						console.log("Possible server API issue. Please check key and try again.")
 					}
 				});
 			} else {
-				console.log("Canceled - for now!");
+				console.log("Reset cancelled.");
 			}
  		}
 		 	 		
