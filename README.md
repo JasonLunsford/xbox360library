@@ -4,7 +4,7 @@
 <h3>Project Overview:</h3>
 
 <p>
-This application is designed to help teams keep track of their XBOX 360 Game library. Team members suggest titles that want added to the team's game library. As the suggestion list grows everybody gets to vote for their particular favorite. As vote count grows the list automatically begins to sort by vote count (decending order), so the most popular games appear on top. When a game is purchased, the game can then be marked as "Owned", and will shift into the appropriate column. Games in the owned column are sorted alphabetically at page render and also as titles are added to the column.
+This application is designed to help teams keep track of their XBOX 360 Game library. Team members suggest titles they want added to the team's game library. As the suggestion list grows everybody gets to vote for their particular favorite. As vote count grows the list automatically begins to sort by vote count (decending order), so the most popular games appear on top. When a game is purchased, the game can then be marked as "Owned", and will shift into the appropriate column. Games in the owned column are sorted alphabetically at page render and also as titles are added to the column.
 </p>
 
 <p>
